@@ -8,8 +8,8 @@ const moon = getCard('the-moon')!;
 describe('TarotCard', () => {
 	it('renders the card art with descriptive alt text', async () => {
 		const screen = render(TarotCard, { card: moon, size: 'hero' });
-		const img = screen.getByRole('img');
-		await expect.element(img).toHaveAttribute('alt', /The Moon/);
+		const img = screen.getByRole('img', { name: /The Moon tarot card/ });
+		await expect.element(img).toBeInTheDocument();
 		await expect.element(img).toHaveAttribute('src', '/cards/the-moon.jpg');
 	});
 
