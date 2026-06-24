@@ -12,6 +12,13 @@
 		flippable?: boolean;
 	} = $props();
 
+	// In the deck grid (thumb), load a lightweight WebP instead of the full art.
+	const frontSrc = $derived(
+		size === 'thumb'
+			? card.image.replace('/cards/', '/cards/thumbs/').replace(/\.jpg$/, '.webp')
+			: card.image
+	);
+
 	let rx = $state(0); // rotateX
 	let ry = $state(0); // rotateY
 	let gx = $state(50); // glare x %
@@ -66,7 +73,12 @@
 >
 	<div class="inner">
 		<div class="face front">
-			<img src={card.image} alt="{card.name} tarot card, Rider–Waite–Smith deck" loading="lazy" />
+			<img
+				src={frontSrc}
+				alt="{card.name} tarot card, Rider–Waite–Smith deck"
+				loading="lazy"
+				decoding="async"
+			/>
 			<div class="foil" aria-hidden="true"></div>
 			<div class="edge" aria-hidden="true"></div>
 		</div>
