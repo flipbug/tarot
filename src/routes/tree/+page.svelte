@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getCard } from '$lib/data';
+	import { getCard, thumbOf } from '$lib/data';
 	import PageNav from '$lib/components/PageNav.svelte';
 
 	type Sephira = {
@@ -220,7 +220,7 @@
 
 		{#each placed as p (p.card.id)}
 			<a class="tcard" style="left:{p.x}%; top:{p.y}%" href="/card/{p.card.id}">
-				<img src={p.card.image} alt={p.card.name} loading="lazy" />
+				<img src={thumbOf(p.card.image)} alt={p.card.name} loading="lazy" decoding="async" />
 				<span class="tlabel">{p.card.name}</span>
 			</a>
 		{/each}

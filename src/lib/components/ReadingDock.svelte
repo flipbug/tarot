@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { reading } from '$lib/stores/reading.svelte';
-	import { getCard, type CardContent } from '$lib/data';
+	import { getCard, thumbOf, type CardContent } from '$lib/data';
 
 	let open = $state(false);
 	let panelEl: HTMLElement | undefined = $state();
@@ -51,7 +51,7 @@
 				{#each entries as e (e.id)}
 					<li>
 						<a class="go" href="/card/{e.id}" onclick={() => (open = false)}>
-							<img src={e.card.image} alt={e.card.name} class:reversed={e.reversed} />
+							<img src={thumbOf(e.card.image)} alt={e.card.name} class:reversed={e.reversed} />
 							<span class="nm"
 								>{e.card.name}{#if e.reversed}<em> reversed</em>{/if}</span
 							>

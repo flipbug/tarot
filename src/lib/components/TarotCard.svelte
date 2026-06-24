@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { CardContent } from '$lib/data';
+	import { thumbOf, type CardContent } from '$lib/data';
 	import CardBackArt from './CardBackArt.svelte';
 
 	let {
@@ -13,11 +13,7 @@
 	} = $props();
 
 	// In the deck grid (thumb), load a lightweight WebP instead of the full art.
-	const frontSrc = $derived(
-		size === 'thumb'
-			? card.image.replace('/cards/', '/cards/thumbs/').replace(/\.jpg$/, '.webp')
-			: card.image
-	);
+	const frontSrc = $derived(size === 'thumb' ? thumbOf(card.image) : card.image);
 
 	let rx = $state(0); // rotateX
 	let ry = $state(0); // rotateY

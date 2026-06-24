@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { reading } from '$lib/stores/reading.svelte';
-	import { CARDS, getCard, type CardContent } from '$lib/data';
+	import { CARDS, getCard, thumbOf, type CardContent } from '$lib/data';
 	import PageNav from '$lib/components/PageNav.svelte';
 
 	const entries = $derived(
@@ -42,7 +42,7 @@
 			{#each entries as e (e.id)}
 				<article class="entry">
 					<a class="art" href="/card/{e.id}">
-						<img src={e.card.image} alt={e.card.name} class:reversed={e.reversed} />
+						<img src={thumbOf(e.card.image)} alt={e.card.name} class:reversed={e.reversed} />
 					</a>
 					<h2>{e.card.name}</h2>
 					<input
