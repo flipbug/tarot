@@ -25,19 +25,34 @@
 		A sacred study of the seventy-eight cards: their symbols, numbers, stars, and the many
 		traditions that illuminate them. One card at a time.
 	</p>
-	<div class="doors">
-		<a class="door" href="/library"
-			><span>Enter the Deck</span><small>Browse &amp; filter all 78 cards</small></a
-		>
-		<a class="door" href="/journey"
-			><span>Walk the Fool's Journey</span><small>The 22 Majors, in order</small></a
-		>
-		<a class="door" href="/tree"><span>The Tree of Life</span><small>The 22 paths, mapped</small></a
-		>
-		{#if last}<a class="door" href="/card/{last.id}"
-				><span>Continue</span><small>{last.name}</small></a
-			>{/if}
-	</div>
+	<nav class="ways" aria-label="Enter the grimoire">
+		<a class="way" href="/library">
+			<span class="way-text">
+				<span class="way-name">The Deck</span>
+				<span class="way-desc">All seventy-eight cards, to browse and filter</span>
+			</span>
+			<span class="way-arrow" aria-hidden="true">→</span>
+		</a>
+		<a class="way" href="/journey">
+			<span class="way-text">
+				<span class="way-name">The Fool's Journey</span>
+				<span class="way-desc">The twenty-two Major Arcana, walked in order</span>
+			</span>
+			<span class="way-arrow" aria-hidden="true">→</span>
+		</a>
+		<a class="way" href="/tree">
+			<span class="way-text">
+				<span class="way-name">The Tree of Life</span>
+				<span class="way-desc">The Major Arcana on their twenty-two paths</span>
+			</span>
+			<span class="way-arrow" aria-hidden="true">→</span>
+		</a>
+	</nav>
+	{#if last}
+		<a class="resume" href="/card/{last.id}">
+			Continue where you left off: <em>{last.name}</em> →
+		</a>
+	{/if}
 	<a class="about-link" href="/about">About the sources &amp; traditions</a>
 </section>
 
@@ -48,13 +63,12 @@
 		place-content: center;
 		justify-items: center;
 		text-align: center;
-		gap: var(--space-6);
 	}
 	.motif-wrap {
 		display: grid;
 		justify-items: center;
 		gap: var(--space-3);
-		margin-bottom: var(--space-2);
+		margin-bottom: var(--space-6);
 	}
 	.motif {
 		display: block;
@@ -76,45 +90,84 @@
 		color: var(--moon-300);
 	}
 	.lede {
-		max-width: 48ch;
+		max-width: 46ch;
+		margin: var(--space-3) 0 0;
 		color: var(--moon-200);
 		font-size: 1.15rem;
+		line-height: 1.6;
+		text-wrap: pretty;
 	}
-	.doors {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-4);
-		justify-content: center;
-		margin-top: var(--space-4);
+
+	/* Ways in — a grimoire's table of contents, not a card grid */
+	.ways {
+		width: 100%;
+		max-width: 32rem;
+		margin-top: var(--space-8);
+		text-align: left;
+		border-top: 1px solid var(--ink-700);
 	}
-	.door {
+	.way {
 		display: grid;
-		gap: var(--space-1);
-		padding: var(--space-6) var(--space-8);
-		background: var(--veil);
-		border: 1px solid var(--ink-600);
-		border-radius: var(--radius-lg);
-		min-width: 220px;
-		transition:
-			box-shadow 0.3s,
-			transform 0.3s;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+		gap: var(--space-4);
+		padding: var(--space-4) var(--space-2);
+		border-bottom: 1px solid var(--ink-700);
 	}
-	.door:hover {
-		box-shadow: var(--glow-moon);
-		transform: translateY(-3px);
+	.way-text {
+		display: grid;
+		gap: 3px;
+		min-width: 0;
 	}
-	.door span {
+	.way-name {
 		font-family: var(--font-display);
-		font-size: 1.3rem;
+		font-size: 1.5rem;
+		line-height: 1.05;
 		color: var(--moon-100);
+		transition: color 0.3s var(--ease-out);
 	}
-	.door small {
+	.way-desc {
 		font-family: var(--font-ui);
+		font-size: 0.78rem;
+		letter-spacing: 0.02em;
 		color: var(--moon-300);
 	}
-	.about-link {
+	.way-arrow {
+		font-family: var(--font-ui);
+		font-size: 1.1rem;
+		color: var(--moon-300);
+		transition:
+			transform 0.3s var(--ease-out),
+			color 0.3s var(--ease-out);
+	}
+	.way:hover .way-name,
+	.way:focus-visible .way-name {
+		color: var(--candle);
+	}
+	.way:hover .way-arrow,
+	.way:focus-visible .way-arrow {
+		transform: translateX(6px);
+		color: var(--candle);
+	}
+	.resume {
+		margin-top: var(--space-4);
 		font-family: var(--font-ui);
 		font-size: 0.85rem;
+		letter-spacing: 0.04em;
+		color: var(--moon-300);
+	}
+	.resume em {
+		color: var(--candle);
+		font-style: normal;
+	}
+	.resume:hover {
+		color: var(--moon-100);
+	}
+	.about-link {
+		margin-top: var(--space-8);
+		font-family: var(--font-ui);
+		font-size: 0.8rem;
+		letter-spacing: 0.04em;
 		color: var(--moon-300);
 	}
 </style>

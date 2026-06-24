@@ -50,5 +50,8 @@
 	--moon-crater: rgba(20, 18, 43, 0.12);
 	--moon-crater-soft: rgba(20, 18, 43, 0.1);
 
+	/* motion */
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
 	--maxw: 72rem;
 }
