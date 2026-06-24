@@ -23,7 +23,7 @@
 	.pagenav {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--space-5);
+		gap: var(--space-8);
 		font-family: var(--font-ui);
 		font-size: 0.72rem;
 		letter-spacing: 0.18em;
