@@ -3,7 +3,10 @@ import { createReading } from './reading.svelte';
 
 describe('reading store', () => {
 	let r: ReturnType<typeof createReading>;
-	beforeEach(() => { localStorage.clear(); r = createReading(); });
+	beforeEach(() => {
+		localStorage.clear();
+		r = createReading();
+	});
 
 	it('adds a card once and ignores unknown ids', () => {
 		r.add('the-moon');

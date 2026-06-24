@@ -44,3 +44,27 @@ test('journey progress never exceeds the 22 Majors after browsing minors', async
 	expect(max).toBe(22);
 	expect(now).toBeLessThanOrEqual(max);
 });
+
+test('reading tray: add, navigate, reverse, persist, clear', async ({ page }) => {
+	await page.goto('/card/the-moon');
+	await page.getByRole('button', { name: /Add to reading/ }).click();
+	// dock badge shows 1
+	await expect(page.getByRole('button', { name: /^Reading/ })).toContainText('1');
+	// open dock and jump to the card
+	await page.getByRole('button', { name: /^Reading/ }).click();
+	await page.getByRole('complementary', { name: 'Reading tray' }).getByText('The Moon').click();
+	await expect(page).toHaveURL(/\/card\/the-moon$/);
+	// open full spread, mark reversed, annotate
+	await page.goto('/reading');
+	await expect(page.getByRole('heading', { level: 2, name: 'The Moon' })).toBeVisible();
+	await page.getByRole('button', { name: 'Upright' }).click();
+	await expect(page.getByRole('button', { name: 'Reversed' })).toBeVisible();
+	await page.getByLabel('Note for The Moon').fill('Present');
+	// persists across reload
+	await page.reload();
+	await expect(page.getByLabel('Note for The Moon')).toHaveValue('Present');
+	await expect(page.getByRole('button', { name: 'Reversed' })).toBeVisible();
+	// clear empties it
+	await page.getByRole('button', { name: 'Clear reading' }).click();
+	await expect(page.getByText('Your reading is empty.')).toBeVisible();
+});

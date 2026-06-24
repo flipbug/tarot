@@ -4,7 +4,9 @@ import AddToReading from './AddToReading.svelte';
 import { reading } from '$lib/stores/reading.svelte';
 
 describe('AddToReading', () => {
-	beforeEach(() => { reading.clear(); });
+	beforeEach(() => {
+		reading.clear();
+	});
 
 	it('toggles a card into and out of the reading', async () => {
 		const screen = render(AddToReading, { id: 'the-moon' });

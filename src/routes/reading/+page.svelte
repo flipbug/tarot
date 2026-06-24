@@ -41,7 +41,8 @@
 						<button
 							class="rev"
 							aria-pressed={e.reversed}
-							onclick={() => reading.toggleReversed(e.id)}>{e.reversed ? 'Reversed' : 'Upright'}</button
+							onclick={() => reading.toggleReversed(e.id)}
+							>{e.reversed ? 'Reversed' : 'Upright'}</button
 						>
 						<button onclick={() => reading.move(e.id, 1)} aria-label="Move later">→</button>
 						<a class="study" href="/card/{e.id}">Study</a>

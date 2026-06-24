@@ -8,7 +8,7 @@ type State = { entries: ReadingEntry[] };
 const empty = (): State => ({ entries: [] });
 
 export function createReading() {
-	let state = $state<State>(load());
+	const state = $state<State>(load());
 
 	function load(): State {
 		if (!browser) return empty();
@@ -39,7 +39,11 @@ export function createReading() {
 		persist();
 	}
 	function toggle(id: string) {
-		indexOf(id) === -1 ? add(id) : remove(id);
+		if (indexOf(id) === -1) {
+			add(id);
+		} else {
+			remove(id);
+		}
 	}
 	function toggleReversed(id: string) {
 		state.entries = state.entries.map((e) => (e.id === id ? { ...e, reversed: !e.reversed } : e));

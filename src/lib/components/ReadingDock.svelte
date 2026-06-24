@@ -28,7 +28,13 @@
 </button>
 
 {#if open}
-	<aside id="reading-dock" class="panel" tabindex="-1" bind:this={panelEl} aria-label="Reading tray">
+	<aside
+		id="reading-dock"
+		class="panel"
+		tabindex="-1"
+		bind:this={panelEl}
+		aria-label="Reading tray"
+	>
 		<header>
 			<h2>Reading</h2>
 			<button class="close" onclick={() => (open = false)} aria-label="Close">×</button>
@@ -42,12 +48,16 @@
 					<li>
 						<a class="go" href="/card/{e.id}" onclick={() => (open = false)}>
 							<img src={e.card.image} alt={e.card.name} class:reversed={e.reversed} />
-							<span class="nm">{e.card.name}{#if e.reversed}<em> reversed</em>{/if}</span>
+							<span class="nm"
+								>{e.card.name}{#if e.reversed}<em> reversed</em>{/if}</span
+							>
 						</a>
 						<div class="ops">
 							<button onclick={() => reading.move(e.id, -1)} aria-label="Move up">↑</button>
 							<button onclick={() => reading.move(e.id, 1)} aria-label="Move down">↓</button>
-							<button onclick={() => reading.toggleReversed(e.id)} aria-label="Toggle reversed">⤢</button>
+							<button onclick={() => reading.toggleReversed(e.id)} aria-label="Toggle reversed"
+								>⤢</button
+							>
 							<button onclick={() => reading.remove(e.id)} aria-label="Remove">×</button>
 						</div>
 					</li>
