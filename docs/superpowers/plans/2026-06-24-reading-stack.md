@@ -40,10 +40,12 @@ e2e/grimoire.test.ts                     # MODIFY — reading flow
 ### Task 1: Reading store
 
 **Files:**
+
 - Create: `src/lib/stores/reading.svelte.ts`
 - Test: `src/lib/stores/reading.svelte.test.ts`
 
 **Interfaces:**
+
 - Produces: `type ReadingEntry = { id: string; reversed: boolean; note: string }`; `createReading()` factory and a `reading` singleton with: `entries: ReadingEntry[]` (getter), `count: number` (getter), `has(id): boolean`, `add(id)`, `remove(id)`, `toggle(id)`, `toggleReversed(id)`, `setNote(id, note)`, `move(id, dir: -1 | 1)`, `clear()`. localStorage key `moonlit-grimoire-reading`.
 
 - [ ] **Step 1: Write the failing test** — `src/lib/stores/reading.svelte.test.ts`
@@ -54,7 +56,10 @@ import { createReading } from './reading.svelte';
 
 describe('reading store', () => {
 	let r: ReturnType<typeof createReading>;
-	beforeEach(() => { localStorage.clear(); r = createReading(); });
+	beforeEach(() => {
+		localStorage.clear();
+		r = createReading();
+	});
 
 	it('adds a card once and ignores unknown ids', () => {
 		r.add('the-moon');
@@ -208,10 +213,12 @@ git commit -m "feat: localStorage-backed reading tray store"
 ### Task 2: Remove favorites from the progress store
 
 **Files:**
+
 - Modify: `src/lib/stores/progress.svelte.ts`
 - Modify: `src/lib/stores/progress.svelte.test.ts`
 
 **Interfaces:**
+
 - Produces: `progress` without `favorites` / `isFavorite` / `toggleFavorite`. `studied`, `journeyIndex`, `lastCardId`, `markStudied`, `setJourneyIndex`, `reset` unchanged.
 
 - [ ] **Step 1: Remove the favorites test case**
@@ -255,11 +262,13 @@ git commit -m "refactor: remove unused favorites API from progress store"
 ### Task 3: AddToReading component + card-detail integration
 
 **Files:**
+
 - Create: `src/lib/components/AddToReading.svelte`
 - Test: `src/lib/components/AddToReading.svelte.test.ts`
 - Modify: `src/routes/card/[id]/+page.svelte`
 
 **Interfaces:**
+
 - Consumes: `reading` from `$lib/stores/reading.svelte`.
 - Produces: `<AddToReading id={string} compact?={boolean} />`. Toggles `reading.has(id)`; `aria-pressed` reflects membership.
 
@@ -272,7 +281,9 @@ import AddToReading from './AddToReading.svelte';
 import { reading } from '$lib/stores/reading.svelte';
 
 describe('AddToReading', () => {
-	beforeEach(() => { reading.clear(); });
+	beforeEach(() => {
+		reading.clear();
+	});
 
 	it('toggles a card into and out of the reading', async () => {
 		const screen = render(AddToReading, { id: 'the-moon' });
@@ -372,7 +383,7 @@ Expected: PASS.
 In `src/routes/card/[id]/+page.svelte`: import it and place it in the rail, just before the `<nav class="rail-pager">`:
 
 ```svelte
-	import AddToReading from '$lib/components/AddToReading.svelte';
+import AddToReading from '$lib/components/AddToReading.svelte';
 ```
 
 ```svelte
@@ -383,9 +394,9 @@ In `src/routes/card/[id]/+page.svelte`: import it and place it in the rail, just
 Add to the page's `<style>`:
 
 ```css
-	.rail-add {
-		display: flex;
-	}
+.rail-add {
+	display: flex;
+}
 ```
 
 - [ ] **Step 6: Validate with Svelte MCP**
@@ -409,9 +420,11 @@ git commit -m "feat: AddToReading toggle on the card detail page"
 ### Task 4: Compact AddToReading on library thumbs
 
 **Files:**
+
 - Modify: `src/lib/components/CardThumb.svelte`
 
 **Interfaces:**
+
 - Consumes: `<AddToReading id compact />`.
 
 - [ ] **Step 1: Wrap the thumb so the button isn't nested in the link**
@@ -497,10 +510,12 @@ git commit -m "feat: quick add-to-reading control on library thumbs"
 ### Task 5: ReadingDock (floating trigger + slide-in panel)
 
 **Files:**
+
 - Create: `src/lib/components/ReadingDock.svelte`
 - Modify: `src/routes/+layout.svelte`
 
 **Interfaces:**
+
 - Consumes: `reading` from `$lib/stores/reading.svelte`, `getCard` from `$lib/data`.
 
 - [ ] **Step 1: Implement ReadingDock.svelte**
@@ -536,7 +551,13 @@ git commit -m "feat: quick add-to-reading control on library thumbs"
 </button>
 
 {#if open}
-	<aside id="reading-dock" class="panel" tabindex="-1" bind:this={panelEl} aria-label="Reading tray">
+	<aside
+		id="reading-dock"
+		class="panel"
+		tabindex="-1"
+		bind:this={panelEl}
+		aria-label="Reading tray"
+	>
 		<header>
 			<h2>Reading</h2>
 			<button class="close" onclick={() => (open = false)} aria-label="Close">×</button>
@@ -550,12 +571,16 @@ git commit -m "feat: quick add-to-reading control on library thumbs"
 					<li>
 						<a class="go" href="/card/{e.id}" onclick={() => (open = false)}>
 							<img src={e.card.image} alt={e.card.name} class:reversed={e.reversed} />
-							<span class="nm">{e.card.name}{#if e.reversed}<em> reversed</em>{/if}</span>
+							<span class="nm"
+								>{e.card.name}{#if e.reversed}<em> reversed</em>{/if}</span
+							>
 						</a>
 						<div class="ops">
 							<button onclick={() => reading.move(e.id, -1)} aria-label="Move up">↑</button>
 							<button onclick={() => reading.move(e.id, 1)} aria-label="Move down">↓</button>
-							<button onclick={() => reading.toggleReversed(e.id)} aria-label="Toggle reversed">⤢</button>
+							<button onclick={() => reading.toggleReversed(e.id)} aria-label="Toggle reversed"
+								>⤢</button
+							>
 							<button onclick={() => reading.remove(e.id)} aria-label="Remove">×</button>
 						</div>
 					</li>
@@ -727,7 +752,7 @@ git commit -m "feat: quick add-to-reading control on library thumbs"
 In `src/routes/+layout.svelte`, import and render it after `<Backdrop />`:
 
 ```svelte
-	import ReadingDock from '$lib/components/ReadingDock.svelte';
+import ReadingDock from '$lib/components/ReadingDock.svelte';
 ```
 
 ```svelte
@@ -757,10 +782,12 @@ git commit -m "feat: app-wide reading dock with slide-in tray panel"
 ### Task 6: The /reading spread page + nav link
 
 **Files:**
+
 - Create: `src/routes/reading/+page.svelte`
 - Modify: `src/lib/components/PageNav.svelte`
 
 **Interfaces:**
+
 - Consumes: `reading`, `getCard`, `PageNav`.
 
 - [ ] **Step 1: Add the nav link**
@@ -824,7 +851,8 @@ In `src/lib/components/PageNav.svelte`: extend the `current` prop type and the `
 						<button
 							class="rev"
 							aria-pressed={e.reversed}
-							onclick={() => reading.toggleReversed(e.id)}>{e.reversed ? 'Reversed' : 'Upright'}</button
+							onclick={() => reading.toggleReversed(e.id)}
+							>{e.reversed ? 'Reversed' : 'Upright'}</button
 						>
 						<button onclick={() => reading.move(e.id, 1)} aria-label="Move later">→</button>
 						<a class="study" href="/card/{e.id}">Study</a>
@@ -946,6 +974,7 @@ git commit -m "feat: /reading spread page and nav link"
 ### Task 7: End-to-end flow + final verification
 
 **Files:**
+
 - Modify: `e2e/grimoire.test.ts`
 
 - [ ] **Step 1: Add the e2e flow**
@@ -1000,6 +1029,7 @@ git commit -m "test: end-to-end coverage for the reading tray"
 ## Self-Review
 
 **Spec coverage:**
+
 - Reading store `{id,reversed,note}`, key, ops → Task 1. ✓
 - Remove favorites + test → Task 2. ✓
 - AddToReading (full + compact), detail + thumb entry points → Tasks 3, 4. ✓

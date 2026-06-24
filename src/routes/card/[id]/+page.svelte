@@ -4,6 +4,7 @@
 	import CorrespondencePanel from '$lib/components/CorrespondencePanel.svelte';
 	import SourceList from '$lib/components/SourceList.svelte';
 	import { progress } from '$lib/stores/progress.svelte';
+	import AddToReading from '$lib/components/AddToReading.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -59,6 +60,7 @@
 					{/each}
 				</ul>
 			</nav>
+			<div class="rail-add"><AddToReading id={card.id} /></div>
 			<nav class="rail-pager" aria-label="Browse cards">
 				<a href="/card/{data.prev.id}" title={data.prev.name}>← Prev</a>
 				<a class="all" href="/library">All</a>
@@ -209,6 +211,9 @@
 		background: var(--candle);
 		transform: translateY(-50%);
 		box-shadow: var(--glow-candle);
+	}
+	.rail-add {
+		display: flex;
 	}
 	.rail-pager {
 		display: flex;

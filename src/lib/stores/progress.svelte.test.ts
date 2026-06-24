@@ -14,12 +14,6 @@ describe('progress store', () => {
 		expect(p.isStudied('the-moon')).toBe(true);
 		expect(p.studied.filter((x) => x === 'the-moon').length).toBe(1);
 	});
-	it('toggles favorites', () => {
-		p.toggleFavorite('the-star');
-		expect(p.isFavorite('the-star')).toBe(true);
-		p.toggleFavorite('the-star');
-		expect(p.isFavorite('the-star')).toBe(false);
-	});
 	it('tracks last card and journey index', () => {
 		p.markStudied('the-sun');
 		expect(p.lastCardId).toBe('the-sun');

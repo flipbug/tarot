@@ -17,6 +17,7 @@ This replaces the dormant, unwired `favorites` concept, which doesn't fit a stud
 ## 2. Goals & Non-Goals
 
 ### Goals (v1)
+
 - A single ordered working tray of cards, each `{ id, reversed, note }`.
 - Add/remove a card to/from the tray from the card detail page and from library grid thumbs.
 - Floating dock (count badge) → drawer listing entries; jump to a card, remove, reorder, clear, open the full spread.
@@ -26,6 +27,7 @@ This replaces the dormant, unwired `favorites` concept, which doesn't fit a stud
 - Remove the `favorites` API from the progress store and its test.
 
 ### Non-Goals (v1 — deferred)
+
 - Multiple named/saved readings (the store is shaped to allow this later).
 - Drawing/shuffling/randomizing cards; spread templates (Celtic Cross, etc.).
 - Sharing, export, print, or sync across devices.
@@ -42,6 +44,7 @@ export type ReadingEntry = { id: string; reversed: boolean; note: string };
 ```
 
 Public API (`reading` singleton + `createReading()` factory for testing):
+
 - `entries` — getter → `ReadingEntry[]`
 - `count` — getter → number
 - `has(id)` — boolean
