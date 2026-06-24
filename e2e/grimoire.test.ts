@@ -33,3 +33,14 @@ test('journey advances and persists across reload', async ({ page }) => {
 		page.getByRole('heading', { level: 1, name: /Step 1 · The Magician/ })
 	).toBeVisible();
 });
+
+test('journey progress never exceeds the 22 Majors after browsing minors', async ({ page }) => {
+	// studying a minor card must NOT inflate the journey (Majors-only) progress
+	await page.goto('/card/ace-of-cups');
+	await page.goto('/journey');
+	const bar = page.getByRole('progressbar');
+	const now = Number(await bar.getAttribute('aria-valuenow'));
+	const max = Number(await bar.getAttribute('aria-valuemax'));
+	expect(max).toBe(22);
+	expect(now).toBeLessThanOrEqual(max);
+});

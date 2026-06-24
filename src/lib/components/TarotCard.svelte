@@ -56,6 +56,7 @@
 	role={flippable ? 'button' : undefined}
 	tabindex={flippable ? 0 : undefined}
 	aria-label={flippable ? `${card.name} — activate to flip` : undefined}
+	aria-pressed={flippable ? flipped : undefined}
 	onpointermove={onmove}
 	onpointerleave={reset}
 	onclick={flip}
