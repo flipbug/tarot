@@ -35,4 +35,9 @@ describe('facetCounts', () => {
 		const total = Object.values(f.elements).reduce((a, b) => a + b, 0);
 		expect(total).toBe(78);
 	});
+	it('suits total 56 and cups === 14', () => {
+		const f = facetCounts(CARDS);
+		expect(Object.values(f.suits).reduce((a, b) => a + b, 0)).toBe(56);
+		expect(f.suits.cups).toBe(14);
+	});
 });

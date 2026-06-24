@@ -10,15 +10,16 @@ export type CardFilter = {
 
 export function filterCards(cards: CardContent[], f: CardFilter): CardContent[] {
 	const q = f.query?.trim().toLowerCase();
+	const re = q ? new RegExp(`\\b${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i') : null;
 	return cards.filter((c) => {
 		if (f.arcana && c.arcana !== f.arcana) return false;
 		if (f.suit && c.suit !== f.suit) return false;
 		if (f.element && c.correspondences.element !== f.element) return false;
 		if (f.planet && c.correspondences.planet !== f.planet) return false;
 		if (q) {
-			const hay = [c.name, c.essence, ...c.keywords, ...c.keywordsReversed].join(' ').toLowerCase();
-			const re = new RegExp(`\\b${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`);
-			if (!re.test(hay)) return false;
+			const nameHit = c.name.toLowerCase().includes(q);
+			const prose = [c.essence, ...c.keywords, ...c.keywordsReversed].join(' ');
+			if (!nameHit && !(re && re.test(prose))) return false;
 		}
 		return true;
 	});
