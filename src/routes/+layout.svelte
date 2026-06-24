@@ -2,11 +2,11 @@
 	import '$lib/styles/tokens.css';
 	import '$lib/styles/fonts.css';
 	import '$lib/styles/global.css';
-	import MistLayer from '$lib/components/MistLayer.svelte';
+	import Backdrop from '$lib/components/Backdrop.svelte';
 	let { children } = $props();
 </script>
 
-<MistLayer />
+<Backdrop />
 <a class="skip" href="#main">Skip to content</a>
 <main id="main">
 	{@render children()}

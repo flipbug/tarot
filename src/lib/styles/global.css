@@ -8,9 +8,11 @@ body {
 	margin: 0;
 	padding: 0;
 }
+html {
+	scroll-behavior: smooth;
+}
 body {
-	background:
-		radial-gradient(1200px 800px at 50% -10%, var(--ink-700), var(--ink-900) 70%), var(--ink-900);
+	background: var(--ink-900);
 	color: var(--moon-200);
 	font-family: var(--font-body);
 	font-size: 1.05rem;
@@ -22,13 +24,23 @@ h1,
 h2,
 h3 {
 	font-family: var(--font-display);
-	font-weight: 400;
+	font-weight: 600;
 	color: var(--moon-100);
-	line-height: 1.1;
-	letter-spacing: 0.01em;
+	line-height: 1.08;
+	letter-spacing: -0.01em;
+	text-wrap: balance;
 }
 h1 {
-	font-size: clamp(2.4rem, 6vw, 4rem);
+	font-size: clamp(2.2rem, 5vw, 3.6rem);
+}
+h2 {
+	font-size: clamp(1.5rem, 3vw, 2rem);
+}
+h3 {
+	font-size: 1.2rem;
+}
+p {
+	text-wrap: pretty;
 }
 a {
 	color: var(--silver);
@@ -55,6 +67,9 @@ a:hover {
 	color: var(--moon-300);
 }
 @media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
 	*,
 	*::before,
 	*::after {

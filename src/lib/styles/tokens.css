@@ -1,15 +1,15 @@
 :root {
-	/* twilight base */
-	--ink-900: #0b0a1a;
-	--ink-800: #14122b;
-	--ink-700: #1d1a3b;
-	--ink-600: #2a2552;
-	--veil: rgba(20, 18, 43, 0.72);
+	/* near-black nocturnal ground (faintly cool) */
+	--ink-900: #08080d;
+	--ink-800: #0e0e16;
+	--ink-700: #15151f;
+	--ink-600: #20202c;
+	--veil: rgba(14, 14, 22, 0.66);
 
 	/* moonlight & accents */
 	--moon-100: #f4f1ff;
-	--moon-200: #d9d2f5;
-	--moon-300: #b8aee0;
+	--moon-200: #d4cee6;
+	--moon-300: #9c95b0;
 	--silver: #c9d4e8;
 	--candle: #f0c27b; /* warm amber */
 	--candle-soft: #e8b35e;
