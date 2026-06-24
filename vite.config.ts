@@ -14,13 +14,6 @@ export default defineConfig({
 				experimental: { async: true }
 			},
 			adapter: adapter({ fallback: undefined, strict: true }),
-				prerender: {
-					handleHttpError: ({ path, message }) => {
-						// /card/[id] routes are built in a later task — ignore 404s there
-						if (path.startsWith('/card/')) return;
-						throw new Error(message);
-					}
-				},
 			preprocess: [mdsvex({ extensions: ['.svx', '.md'] })],
 			extensions: ['.svelte', '.svx', '.md'],
 			experimental: { remoteFunctions: true, handleRenderingErrors: true }
