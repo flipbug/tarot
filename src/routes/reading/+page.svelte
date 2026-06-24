@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { reading } from '$lib/stores/reading.svelte';
-	import { getCard } from '$lib/data';
+	import { getCard, type CardContent } from '$lib/data';
 	import PageNav from '$lib/components/PageNav.svelte';
 
-	const entries = $derived(reading.entries.map((e) => ({ ...e, card: getCard(e.id)! })));
+	const entries = $derived(
+		reading.entries
+			.map((e) => ({ ...e, card: getCard(e.id) }))
+			.filter((e): e is typeof e & { card: CardContent } => e.card !== undefined)
+	);
 </script>
 
 <svelte:head><title>Reading · The Tarot</title></svelte:head>

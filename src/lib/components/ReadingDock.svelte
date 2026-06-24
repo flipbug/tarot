@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { reading } from '$lib/stores/reading.svelte';
-	import { getCard } from '$lib/data';
+	import { getCard, type CardContent } from '$lib/data';
 
 	let open = $state(false);
 	let panelEl: HTMLElement | undefined = $state();
 
-	const entries = $derived(reading.entries.map((e) => ({ ...e, card: getCard(e.id)! })));
+	const entries = $derived(
+		reading.entries
+			.map((e) => ({ ...e, card: getCard(e.id) }))
+			.filter((e): e is typeof e & { card: CardContent } => e.card !== undefined)
+	);
 
 	function onWindowKey(e: KeyboardEvent) {
 		if (e.key === 'Escape') open = false;
