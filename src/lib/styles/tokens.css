@@ -42,5 +42,8 @@
 	--foil-cool: rgba(154, 108, 240, 0.25);  /* amethyst */
 	--edge-line: rgba(201, 212, 232, 0.35);  /* silver */
 
+	--moon-crater: rgba(20, 18, 43, 0.12);
+	--moon-crater-soft: rgba(20, 18, 43, 0.10);
+
 	--maxw: 72rem;
 }
