@@ -28,7 +28,7 @@
 			y: 6,
 			sphere: 'Primum Mobile',
 			divineName: 'Eheieh',
-			desc: 'The first emanation — pure being, the unutterable point of light from which all else unfolds. Unity before division, the white brilliance that crowns the Tree.'
+			desc: 'The first emanation, pure being, the unutterable point of light from which all else unfolds. Unity before division, the white brilliance that crowns the Tree.'
 		},
 		{
 			key: 'chokmah',
@@ -40,7 +40,7 @@
 			y: 18,
 			sphere: 'The Zodiac (Mazloth)',
 			divineName: 'Yah',
-			desc: 'The primal masculine force — dynamic, outpouring will, the first stirring of energy into wisdom. The great Father who fathers the worlds.'
+			desc: 'The primal masculine force, dynamic, outpouring will, the first stirring of energy into wisdom. The great Father who fathers the worlds.'
 		},
 		{
 			key: 'binah',
@@ -52,7 +52,7 @@
 			y: 18,
 			sphere: 'Saturn (Shabbathai)',
 			divineName: 'YHVH Elohim',
-			desc: 'The great Mother who gives form to force — receptive understanding, the dark sea where energy takes shape. Limitation, sorrow, and the womb of becoming.'
+			desc: 'The great Mother who gives form to force, receptive understanding, the dark sea where energy takes shape. Limitation, sorrow, and the womb of becoming.'
 		},
 		{
 			key: 'chesed',
@@ -64,7 +64,7 @@
 			y: 40,
 			sphere: 'Jupiter (Tzedek)',
 			divineName: 'El',
-			desc: 'Loving-kindness and expansion — the benevolent ruler, grace and abundance flowing outward. The architect’s mercy that builds and sustains.'
+			desc: 'Loving-kindness and expansion, the benevolent ruler, grace and abundance flowing outward. The architect’s mercy that builds and sustains.'
 		},
 		{
 			key: 'geburah',
@@ -76,7 +76,7 @@
 			y: 40,
 			sphere: 'Mars (Madim)',
 			divineName: 'Elohim Gibor',
-			desc: 'Strength, judgment, and restriction — the necessary fire that prunes and corrects. Power, justice, and the courage to end what must end.'
+			desc: 'Strength, judgment, and restriction, the necessary fire that prunes and corrects. Power, justice, and the courage to end what must end.'
 		},
 		{
 			key: 'tiphareth',
@@ -88,7 +88,7 @@
 			y: 52,
 			sphere: 'The Sun (Shemesh)',
 			divineName: 'YHVH Eloah va-Daath',
-			desc: 'The harmonizing heart of the Tree — beauty, balance, and the sacrificed god who reconciles the spheres. The seat of the higher self.'
+			desc: 'The harmonizing heart of the Tree, beauty, balance, and the sacrificed god who reconciles the spheres. The seat of the higher self.'
 		},
 		{
 			key: 'netzach',
@@ -100,7 +100,7 @@
 			y: 72,
 			sphere: 'Venus (Nogah)',
 			divineName: 'YHVH Tzabaoth',
-			desc: 'Desire, emotion, and the green fire of nature — the enduring force of feeling, art, and love that draws the soul onward.'
+			desc: 'Desire, emotion, and the green fire of nature, the enduring force of feeling, art, and love that draws the soul onward.'
 		},
 		{
 			key: 'hod',
@@ -112,7 +112,7 @@
 			y: 72,
 			sphere: 'Mercury (Kokab)',
 			divineName: 'Elohim Tzabaoth',
-			desc: 'Intellect, language, and form — the splendor of mind that names and measures. Reason, magic, and the patterns beneath appearances.'
+			desc: 'Intellect, language, and form, the splendor of mind that names and measures. Reason, magic, and the patterns beneath appearances.'
 		},
 		{
 			key: 'yesod',
@@ -124,7 +124,7 @@
 			y: 83,
 			sphere: 'The Moon (Levanah)',
 			divineName: 'Shaddai El Chai',
-			desc: 'The foundation — the astral treasure-house of images and dreams, the tides of the subconscious through which the worlds above reach the earth.'
+			desc: 'The foundation, the astral treasure-house of images and dreams, the tides of the subconscious through which the worlds above reach the earth.'
 		},
 		{
 			key: 'malkuth',
@@ -136,7 +136,7 @@
 			y: 96,
 			sphere: 'The Elements / Earth',
 			divineName: 'Adonai ha-Aretz',
-			desc: 'The kingdom — the manifest world, the body, the four elements. The throne where all the powers above come to rest, and where the ascent begins.'
+			desc: 'The kingdom, the manifest world, the body, the four elements. The throne where all the powers above come to rest, and where the ascent begins.'
 		}
 	];
 	const S = Object.fromEntries(SEPHIROTH.map((s) => [s.key, s]));
@@ -186,13 +186,13 @@
 	}
 </script>
 
-<svelte:head><title>The Tree of Life · Moonlit Grimoire</title></svelte:head>
+<svelte:head><title>The Tree of Life · The Tarot</title></svelte:head>
 
 <section class="container intro">
 	<PageNav current="tree" />
 	<h1>The Tree of Life</h1>
 	<p class="lede">
-		Trace the lightning-flash of creation: ten luminous spheres — the Sephiroth — strung along three
+		Trace the lightning-flash of creation: ten luminous spheres, the Sephiroth, strung along three
 		pillars and bound by twenty-two paths. Each path carries one of the Major Arcana, a current
 		running between two spheres. Tap a sphere for its lore, or follow any card to its reading.
 	</p>
@@ -211,7 +211,7 @@
 				class="seph"
 				style="left:{s.x}%; top:{s.y}%"
 				onclick={() => open(s)}
-				aria-label="{s.num}. {s.name} — {s.title}"
+				aria-label="{s.num}. {s.name}, {s.title}"
 			>
 				<span class="sphere"><span class="heb">{s.hebrew}</span></span>
 				<span class="seph-label">{s.num} · {s.name}</span>
@@ -283,7 +283,7 @@
 		opacity: 0.22;
 	}
 
-	/* Sephiroth — clickable spheres with Hebrew inside */
+	/* Sephiroth, clickable spheres with Hebrew inside */
 	.seph {
 		position: absolute;
 		transform: translate(-50%, -50%);

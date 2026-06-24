@@ -19,7 +19,7 @@
 	});
 </script>
 
-<svelte:head><title>The Fool's Journey · Moonlit Grimoire</title></svelte:head>
+<svelte:head><title>The Fool's Journey · The Tarot</title></svelte:head>
 
 <section class="container journey">
 	<PageNav current="journey" />

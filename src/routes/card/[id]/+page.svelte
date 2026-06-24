@@ -46,7 +46,7 @@
 	});
 </script>
 
-<svelte:head><title>{card.name} · Moonlit Grimoire</title></svelte:head>
+<svelte:head><title>{card.name} · The Tarot</title></svelte:head>
 
 <article class="detail container">
 	<aside class="rail">
@@ -105,7 +105,7 @@
 		</section>
 
 		<section id="archetype">
-			<h2>Archetype — {card.archetype.name}</h2>
+			<h2>Archetype: {card.archetype.name}</h2>
 			<p class="prose">{card.archetype.description}</p>
 		</section>
 
@@ -160,7 +160,7 @@
 		display: grid;
 		grid-template-columns: minmax(210px, 250px) minmax(0, 1fr);
 		gap: var(--space-12);
-		/* no align-items: start — the rail cell must stretch to full row height
+		/* no align-items: start; the rail cell must stretch to full row height
 		   so its sticky child can stay pinned through the whole scroll */
 	}
 	.rail-sticky {

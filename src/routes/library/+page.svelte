@@ -9,7 +9,7 @@
 	const visible = $derived(filterCards(CARDS, filter));
 </script>
 
-<svelte:head><title>The Deck · Moonlit Grimoire</title></svelte:head>
+<svelte:head><title>The Deck · The Tarot</title></svelte:head>
 
 <section class="container">
 	<PageNav current="library" />

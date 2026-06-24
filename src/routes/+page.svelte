@@ -8,12 +8,12 @@
 <svelte:head><title>The Tarot · Learn the 78 cards</title></svelte:head>
 
 <section class="altar container">
-	<a class="motif" href="/library" aria-label="Enter the deck — browse all 78 cards">
+	<a class="motif" href="/library" aria-label="Enter the deck, browse all 78 cards">
 		<CardBack />
 	</a>
 	<h1>The Tarot</h1>
 	<p class="lede">
-		A sacred study of the seventy-eight cards — their symbols, numbers, stars, and the many
+		A sacred study of the seventy-eight cards: their symbols, numbers, stars, and the many
 		traditions that illuminate them. One card at a time.
 	</p>
 	<div class="doors">

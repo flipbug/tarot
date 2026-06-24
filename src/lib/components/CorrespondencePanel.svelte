@@ -16,7 +16,7 @@
 					: undefined
 			],
 			['Tree of Life', c.treePath],
-			['Number', `${c.numerology.number} — ${c.numerology.meaning}`]
+			['Number', `${c.numerology.number} · ${c.numerology.meaning}`]
 		].filter(([, v]) => v) as [string, string][]
 	);
 	const elColor = $derived(`var(${ELEMENT_VAR[c.element as Element]})`);
