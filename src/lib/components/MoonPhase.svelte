@@ -15,5 +15,7 @@
 </svg>
 
 <style>
-	.moon { filter: drop-shadow(var(--glow-moon)); }
+	.moon {
+		filter: drop-shadow(var(--glow-moon));
+	}
 </style>

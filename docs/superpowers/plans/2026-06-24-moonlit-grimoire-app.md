@@ -68,12 +68,14 @@ e2e/grimoire.test.ts                   # CREATE: Playwright e2e
 ### Task 1: Static-site configuration & scaffold cleanup
 
 **Files:**
+
 - Modify: `svelte.config.js`
 - Create: `src/routes/+layout.ts`
 - Delete: `src/routes/demo/` (and `src/lib/vitest-examples/`)
 - Modify: `package.json` (add adapter-static dev dep via bun)
 
 **Interfaces:**
+
 - Produces: a static, prerendered build; `prerender = true` inherited by all routes.
 
 - [ ] **Step 1: Install the static adapter**
@@ -131,11 +133,13 @@ git commit -m "chore: configure static adapter, enable prerender, remove demo sc
 ### Task 2: Design tokens, fonts, and global styles
 
 **Files:**
+
 - Create: `scripts/fetch-fonts.sh`
 - Create: `src/lib/styles/tokens.css`, `src/lib/styles/fonts.css`, `src/lib/styles/global.css`
 - Modify: `src/routes/+layout.svelte`
 
 **Interfaces:**
+
 - Produces: CSS custom properties (`--moon-*`, `--ink-*`, `--space-*`, `--font-*`), `@font-face` for Aktura + Sentient, and a global shell importing all three stylesheets.
 
 - [ ] **Step 1: Write the font-fetch script**
@@ -212,7 +216,7 @@ Create `src/lib/styles/tokens.css`:
 	--moon-200: #d9d2f5;
 	--moon-300: #b8aee0;
 	--silver: #c9d4e8;
-	--candle: #f0c27b;     /* warm amber */
+	--candle: #f0c27b; /* warm amber */
 	--candle-soft: #e8b35e;
 	--sage: #9bbf9e;
 	--amethyst: #9a6cf0;
@@ -230,9 +234,14 @@ Create `src/lib/styles/tokens.css`:
 	--font-ui: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
 	/* spacing scale */
-	--space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
-	--space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem;
-	--space-12: 3rem; --space-16: 4rem;
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
 
 	/* radius, glow */
 	--radius: 14px;
@@ -249,12 +258,19 @@ Create `src/lib/styles/tokens.css`:
 Create `src/lib/styles/global.css`:
 
 ```css
-*, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
 body {
 	background:
-		radial-gradient(1200px 800px at 50% -10%, var(--ink-700), var(--ink-900) 70%),
-		var(--ink-900);
+		radial-gradient(1200px 800px at 50% -10%, var(--ink-700), var(--ink-900) 70%), var(--ink-900);
 	color: var(--moon-200);
 	font-family: var(--font-body);
 	font-size: 1.05rem;
@@ -262,15 +278,50 @@ body {
 	min-height: 100vh;
 	-webkit-font-smoothing: antialiased;
 }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 400; color: var(--moon-100); line-height: 1.1; letter-spacing: 0.01em; }
-h1 { font-size: clamp(2.4rem, 6vw, 4rem); }
-a { color: var(--silver); text-decoration: none; }
-a:hover { color: var(--moon-100); }
-:focus-visible { outline: 2px solid var(--candle); outline-offset: 3px; border-radius: 4px; }
-.container { max-width: var(--maxw); margin: 0 auto; padding: var(--space-8) var(--space-6); }
-.eyebrow { font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.72rem; color: var(--moon-300); }
+h1,
+h2,
+h3 {
+	font-family: var(--font-display);
+	font-weight: 400;
+	color: var(--moon-100);
+	line-height: 1.1;
+	letter-spacing: 0.01em;
+}
+h1 {
+	font-size: clamp(2.4rem, 6vw, 4rem);
+}
+a {
+	color: var(--silver);
+	text-decoration: none;
+}
+a:hover {
+	color: var(--moon-100);
+}
+:focus-visible {
+	outline: 2px solid var(--candle);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+.container {
+	max-width: var(--maxw);
+	margin: 0 auto;
+	padding: var(--space-8) var(--space-6);
+}
+.eyebrow {
+	font-family: var(--font-ui);
+	text-transform: uppercase;
+	letter-spacing: 0.22em;
+	font-size: 0.72rem;
+	color: var(--moon-300);
+}
 @media (prefers-reduced-motion: reduce) {
-	*, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+	}
 }
 ```
 
@@ -292,8 +343,18 @@ Replace `src/routes/+layout.svelte`:
 </main>
 
 <style>
-	.skip { position: absolute; left: -9999px; }
-	.skip:focus { left: var(--space-4); top: var(--space-4); z-index: 10; background: var(--ink-700); padding: var(--space-2) var(--space-4); border-radius: 8px; }
+	.skip {
+		position: absolute;
+		left: -9999px;
+	}
+	.skip:focus {
+		left: var(--space-4);
+		top: var(--space-4);
+		z-index: 10;
+		background: var(--ink-700);
+		padding: var(--space-2) var(--space-4);
+		border-radius: 8px;
+	}
 </style>
 ```
 
@@ -317,11 +378,13 @@ git commit -m "feat: moonlit design tokens, self-hosted fonts, global styles"
 ### Task 3: Display labels + filter/search logic (pure, tested)
 
 **Files:**
+
 - Create: `src/lib/data/labels.ts`
 - Create: `src/lib/data/filter.ts`
 - Test: `src/lib/data/filter.test.ts`
 
 **Interfaces:**
+
 - Produces:
   - `labels.ts`: `SUIT_LABEL: Record<Suit,string>`, `ELEMENT_LABEL: Record<Element,string>`, `RANK_LABEL: Record<Rank,string>`, `ELEMENT_VAR: Record<Element,string>` (maps element → CSS var name).
   - `filter.ts`: `type CardFilter = { arcana?: Arcana; suit?: Suit; element?: Element; planet?: string; query?: string }`; `filterCards(cards: CardContent[], f: CardFilter): CardContent[]`; `facetCounts(cards: CardContent[]): { elements: Record<string,number>; suits: Record<string,number>; planets: string[] }`.
@@ -332,18 +395,40 @@ git commit -m "feat: moonlit design tokens, self-hosted fonts, global styles"
 import type { Suit, Element, Rank } from './types';
 
 export const SUIT_LABEL: Record<Suit, string> = {
-	wands: 'Wands', cups: 'Cups', swords: 'Swords', pentacles: 'Pentacles'
+	wands: 'Wands',
+	cups: 'Cups',
+	swords: 'Swords',
+	pentacles: 'Pentacles'
 };
 export const ELEMENT_LABEL: Record<Element, string> = {
-	fire: 'Fire', water: 'Water', air: 'Air', earth: 'Earth', spirit: 'Spirit'
+	fire: 'Fire',
+	water: 'Water',
+	air: 'Air',
+	earth: 'Earth',
+	spirit: 'Spirit'
 };
 export const ELEMENT_VAR: Record<Element, string> = {
-	fire: '--el-fire', water: '--el-water', air: '--el-air', earth: '--el-earth', spirit: '--el-spirit'
+	fire: '--el-fire',
+	water: '--el-water',
+	air: '--el-air',
+	earth: '--el-earth',
+	spirit: '--el-spirit'
 };
 export const RANK_LABEL: Record<Rank, string> = {
-	ace: 'Ace', two: 'Two', three: 'Three', four: 'Four', five: 'Five', six: 'Six',
-	seven: 'Seven', eight: 'Eight', nine: 'Nine', ten: 'Ten',
-	page: 'Page', knight: 'Knight', queen: 'Queen', king: 'King'
+	ace: 'Ace',
+	two: 'Two',
+	three: 'Three',
+	four: 'Four',
+	five: 'Five',
+	six: 'Six',
+	seven: 'Seven',
+	eight: 'Eight',
+	nine: 'Nine',
+	ten: 'Ten',
+	page: 'Page',
+	knight: 'Knight',
+	queen: 'Queen',
+	king: 'King'
 };
 ```
 
@@ -456,9 +541,11 @@ git commit -m "feat: card display labels and tested filter/search logic"
 ### Task 4: Content-integrity test (guards the data)
 
 **Files:**
+
 - Test: `src/lib/data/cards.content.test.ts`
 
 **Interfaces:**
+
 - Consumes: `CARDS` from `src/lib/data`, `static/cards/*.jpg` on disk.
 
 - [ ] **Step 1: Write the content-integrity test**
@@ -482,7 +569,14 @@ describe('card content integrity', () => {
 
 	it('every card has all required fields populated', () => {
 		for (const c of CARDS) {
-			for (const f of ['name', 'essence', 'symbolismProse', 'upright', 'reversed', 'mythology'] as const) {
+			for (const f of [
+				'name',
+				'essence',
+				'symbolismProse',
+				'upright',
+				'reversed',
+				'mythology'
+			] as const) {
 				expect(c[f], `${c.id}.${f}`).toBeTruthy();
 			}
 			expect(c.symbolism.length, `${c.id} symbolism`).toBeGreaterThanOrEqual(5);
@@ -546,10 +640,12 @@ git commit -m "test: content-integrity guard for the 78-card data set"
 ### Task 5: The `<TarotCard>` 3D component
 
 **Files:**
+
 - Create: `src/lib/components/TarotCard.svelte`
 - Test: `src/lib/components/TarotCard.svelte.test.ts`
 
 **Interfaces:**
+
 - Consumes: `CardContent` (uses `image`, `name`, `arcana`).
 - Produces: `<TarotCard card={CardContent} size?='thumb'|'hero' flippable?=boolean />`. Renders an `<img>` with descriptive `alt`; pointer-tilt + holographic sheen on `hero`; flip on click/Enter when `flippable`.
 
@@ -591,7 +687,11 @@ Expected: FAIL — component does not exist.
 <script lang="ts">
 	import type { CardContent } from '$lib/data';
 
-	let { card, size = 'thumb', flippable = false }: {
+	let {
+		card,
+		size = 'thumb',
+		flippable = false
+	}: {
 		card: CardContent;
 		size?: 'thumb' | 'hero';
 		flippable?: boolean;
@@ -616,10 +716,21 @@ Expected: FAIL — component does not exist.
 		gy = py * 100;
 		active = true;
 	}
-	function reset() { rx = 0; ry = 0; gx = 50; gy = 50; active = false; }
-	function flip() { if (flippable) flipped = !flipped; }
+	function reset() {
+		rx = 0;
+		ry = 0;
+		gx = 50;
+		gy = 50;
+		active = false;
+	}
+	function flip() {
+		if (flippable) flipped = !flipped;
+	}
 	function onkey(e: KeyboardEvent) {
-		if (flippable && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); flip(); }
+		if (flippable && (e.key === 'Enter' || e.key === ' ')) {
+			e.preventDefault();
+			flip();
+		}
 	}
 </script>
 
@@ -638,7 +749,11 @@ Expected: FAIL — component does not exist.
 >
 	<div class="inner">
 		<div class="face front">
-			<img src={card.image} alt="The {card.name} tarot card, Rider–Waite–Smith deck" loading="lazy" />
+			<img
+				src={card.image}
+				alt="The {card.name} tarot card, Rider–Waite–Smith deck"
+				loading="lazy"
+			/>
 			<div class="foil" aria-hidden="true"></div>
 			<div class="edge" aria-hidden="true"></div>
 		</div>
@@ -649,35 +764,88 @@ Expected: FAIL — component does not exist.
 </div>
 
 <style>
-	.card { perspective: 1000px; width: 100%; aspect-ratio: 0.585; }
-	.hero { max-width: 360px; }
+	.card {
+		perspective: 1000px;
+		width: 100%;
+		aspect-ratio: 0.585;
+	}
+	.hero {
+		max-width: 360px;
+	}
 	.inner {
-		position: relative; width: 100%; height: 100%;
+		position: relative;
+		width: 100%;
+		height: 100%;
 		transform-style: preserve-3d;
 		transform: rotateX(var(--rx)) rotateY(var(--ry));
 		transition: transform 0.25s ease;
 		border-radius: var(--radius);
 	}
-	.active .inner { transition: transform 0.05s linear; }
-	.flipped .inner { transform: rotateY(180deg); }
+	.active .inner {
+		transition: transform 0.05s linear;
+	}
+	.flipped .inner {
+		transform: rotateY(180deg);
+	}
 	.face {
-		position: absolute; inset: 0; backface-visibility: hidden;
-		border-radius: var(--radius); overflow: hidden;
+		position: absolute;
+		inset: 0;
+		backface-visibility: hidden;
+		border-radius: var(--radius);
+		overflow: hidden;
 		box-shadow: var(--glow-moon);
 	}
-	.front img { display: block; width: 100%; height: 100%; object-fit: cover; }
-	.foil {
-		position: absolute; inset: 0; mix-blend-mode: color-dodge; opacity: 0; transition: opacity 0.2s;
-		background: radial-gradient(circle at var(--gx) var(--gy), rgba(240,194,123,0.5), rgba(154,108,240,0.25) 40%, transparent 70%);
+	.front img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
-	.active .foil { opacity: 0.9; }
-	.edge { position: absolute; inset: 0; border-radius: var(--radius); box-shadow: inset 0 0 0 1px rgba(201,212,232,0.35); }
-	.back { transform: rotateY(180deg); display: grid; place-items: center; background: radial-gradient(circle, var(--ink-600), var(--ink-800)); }
-	.sigil { font-size: 3rem; color: var(--silver); text-shadow: var(--glow-moon); }
+	.foil {
+		position: absolute;
+		inset: 0;
+		mix-blend-mode: color-dodge;
+		opacity: 0;
+		transition: opacity 0.2s;
+		background: radial-gradient(
+			circle at var(--gx) var(--gy),
+			rgba(240, 194, 123, 0.5),
+			rgba(154, 108, 240, 0.25) 40%,
+			transparent 70%
+		);
+	}
+	.active .foil {
+		opacity: 0.9;
+	}
+	.edge {
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius);
+		box-shadow: inset 0 0 0 1px rgba(201, 212, 232, 0.35);
+	}
+	.back {
+		transform: rotateY(180deg);
+		display: grid;
+		place-items: center;
+		background: radial-gradient(circle, var(--ink-600), var(--ink-800));
+	}
+	.sigil {
+		font-size: 3rem;
+		color: var(--silver);
+		text-shadow: var(--glow-moon);
+	}
 	@media (prefers-reduced-motion: reduce) {
-		.inner, .active .inner { transition: none; transform: none; }
-		.flipped .inner { transform: rotateY(180deg); }
-		.foil { display: none; }
+		.inner,
+		.active .inner {
+			transition: none;
+			transform: none;
+		}
+		.flipped .inner {
+			transform: rotateY(180deg);
+		}
+		.foil {
+			display: none;
+		}
 	}
 </style>
 ```
@@ -703,10 +871,12 @@ git commit -m "feat: 3D TarotCard with tilt, holographic foil, flip, reduced-mot
 ### Task 6: Ambient atmosphere — MoonPhase & MistLayer
 
 **Files:**
+
 - Create: `src/lib/components/MoonPhase.svelte`, `src/lib/components/MistLayer.svelte`
 - Modify: `src/routes/+layout.svelte`
 
 **Interfaces:**
+
 - Produces: `<MoonPhase size?=number />` (decorative SVG moon with glow); `<MistLayer />` (fixed, `aria-hidden` drifting gradient haze behind content). MistLayer renders nothing animated under `prefers-reduced-motion`.
 
 - [ ] **Step 1: Implement MistLayer.svelte**
@@ -719,13 +889,53 @@ git commit -m "feat: 3D TarotCard with tilt, holographic foil, flip, reduced-mot
 </div>
 
 <style>
-	.mist { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-	.cloud { position: absolute; width: 60vw; height: 60vw; border-radius: 50%; filter: blur(80px); opacity: 0.22; }
-	.a { background: var(--amethyst); top: -10%; left: -10%; animation: drift 38s ease-in-out infinite alternate; }
-	.b { background: var(--el-water); bottom: -15%; right: -10%; animation: drift 52s ease-in-out infinite alternate-reverse; }
-	.c { background: var(--sage); top: 30%; left: 40%; opacity: 0.12; animation: drift 64s ease-in-out infinite alternate; }
-	@keyframes drift { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(6%, -8%, 0) scale(1.15); } }
-	@media (prefers-reduced-motion: reduce) { .cloud { animation: none; } }
+	.mist {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		overflow: hidden;
+		pointer-events: none;
+	}
+	.cloud {
+		position: absolute;
+		width: 60vw;
+		height: 60vw;
+		border-radius: 50%;
+		filter: blur(80px);
+		opacity: 0.22;
+	}
+	.a {
+		background: var(--amethyst);
+		top: -10%;
+		left: -10%;
+		animation: drift 38s ease-in-out infinite alternate;
+	}
+	.b {
+		background: var(--el-water);
+		bottom: -15%;
+		right: -10%;
+		animation: drift 52s ease-in-out infinite alternate-reverse;
+	}
+	.c {
+		background: var(--sage);
+		top: 30%;
+		left: 40%;
+		opacity: 0.12;
+		animation: drift 64s ease-in-out infinite alternate;
+	}
+	@keyframes drift {
+		from {
+			transform: translate3d(0, 0, 0) scale(1);
+		}
+		to {
+			transform: translate3d(6%, -8%, 0) scale(1.15);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.cloud {
+			animation: none;
+		}
+	}
 </style>
 ```
 
@@ -749,7 +959,9 @@ git commit -m "feat: 3D TarotCard with tilt, holographic foil, flip, reduced-mot
 </svg>
 
 <style>
-	.moon { filter: drop-shadow(var(--glow-moon)); }
+	.moon {
+		filter: drop-shadow(var(--glow-moon));
+	}
 </style>
 ```
 
@@ -793,10 +1005,12 @@ git commit -m "feat: ambient MistLayer and MoonPhase atmosphere"
 ### Task 7: Library — CardThumb, CardGrid, FilterBar, /library route
 
 **Files:**
+
 - Create: `src/lib/components/CardThumb.svelte`, `src/lib/components/CardGrid.svelte`, `src/lib/components/FilterBar.svelte`
 - Create: `src/routes/library/+page.svelte`
 
 **Interfaces:**
+
 - Consumes: `CARDS`, `filterCards`, `facetCounts`, `CardFilter`, labels, `TarotCard`.
 - Produces: `<CardThumb card />` (links to `/card/{id}`, shows TarotCard thumb + name); `<CardGrid cards />`; `<FilterBar bind:filter />` emitting a `CardFilter`.
 
@@ -815,9 +1029,22 @@ git commit -m "feat: ambient MistLayer and MoonPhase atmosphere"
 </a>
 
 <style>
-	.thumb { display: grid; gap: var(--space-2); justify-items: center; transition: transform 0.2s; }
-	.thumb:hover { transform: translateY(-4px); }
-	.name { font-family: var(--font-ui); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--moon-200); text-align: center; }
+	.thumb {
+		display: grid;
+		gap: var(--space-2);
+		justify-items: center;
+		transition: transform 0.2s;
+	}
+	.thumb:hover {
+		transform: translateY(-4px);
+	}
+	.name {
+		font-family: var(--font-ui);
+		font-size: 0.8rem;
+		letter-spacing: 0.04em;
+		color: var(--moon-200);
+		text-align: center;
+	}
 </style>
 ```
 
@@ -841,8 +1068,17 @@ git commit -m "feat: ambient MistLayer and MoonPhase atmosphere"
 {/if}
 
 <style>
-	.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-8) var(--space-6); }
-	.empty { color: var(--moon-300); font-style: italic; text-align: center; padding: var(--space-16) 0; }
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		gap: var(--space-8) var(--space-6);
+	}
+	.empty {
+		color: var(--moon-300);
+		font-style: italic;
+		text-align: center;
+		padding: var(--space-16) 0;
+	}
 </style>
 ```
 
@@ -863,30 +1099,41 @@ git commit -m "feat: ambient MistLayer and MoonPhase atmosphere"
 	function toggle<K extends keyof CardFilter>(key: K, value: CardFilter[K]) {
 		filter = { ...filter, [key]: filter[key] === value ? undefined : value };
 	}
-	function clearAll() { filter = {}; }
+	function clearAll() {
+		filter = {};
+	}
 </script>
 
 <div class="bar">
 	<input
-		class="search" type="search" placeholder="Search the deck…"
+		class="search"
+		type="search"
+		placeholder="Search the deck…"
 		value={filter.query ?? ''}
 		oninput={(e) => (filter = { ...filter, query: e.currentTarget.value })}
 		aria-label="Search cards by name or keyword"
 	/>
 	<div class="groups">
-		<fieldset><legend>Arcana</legend>
+		<fieldset>
+			<legend>Arcana</legend>
 			{#each arcana as a}
 				<button class:on={filter.arcana === a} onclick={() => toggle('arcana', a)}>{a}</button>
 			{/each}
 		</fieldset>
-		<fieldset><legend>Suit</legend>
+		<fieldset>
+			<legend>Suit</legend>
 			{#each suits as s}
-				<button class:on={filter.suit === s} onclick={() => toggle('suit', s)}>{SUIT_LABEL[s]}</button>
+				<button class:on={filter.suit === s} onclick={() => toggle('suit', s)}
+					>{SUIT_LABEL[s]}</button
+				>
 			{/each}
 		</fieldset>
-		<fieldset><legend>Element</legend>
+		<fieldset>
+			<legend>Element</legend>
 			{#each elements as el}
-				<button class:on={filter.element === el} onclick={() => toggle('element', el)}>{ELEMENT_LABEL[el]}</button>
+				<button class:on={filter.element === el} onclick={() => toggle('element', el)}
+					>{ELEMENT_LABEL[el]}</button
+				>
 			{/each}
 		</fieldset>
 	</div>
@@ -894,14 +1141,63 @@ git commit -m "feat: ambient MistLayer and MoonPhase atmosphere"
 </div>
 
 <style>
-	.bar { display: grid; gap: var(--space-4); margin-bottom: var(--space-8); }
-	.search { width: 100%; padding: var(--space-3) var(--space-4); background: var(--veil); border: 1px solid var(--ink-600); border-radius: var(--radius); color: var(--moon-100); font-family: var(--font-ui); }
-	.groups { display: flex; flex-wrap: wrap; gap: var(--space-6); }
-	fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
-	legend { float: left; margin-right: var(--space-2); font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.66rem; color: var(--moon-300); }
-	button { font-family: var(--font-ui); font-size: 0.78rem; padding: var(--space-1) var(--space-3); background: transparent; border: 1px solid var(--ink-600); border-radius: 999px; color: var(--moon-200); cursor: pointer; text-transform: capitalize; }
-	button.on { background: var(--candle); color: var(--ink-900); border-color: var(--candle); box-shadow: var(--glow-candle); }
-	.clear { justify-self: start; }
+	.bar {
+		display: grid;
+		gap: var(--space-4);
+		margin-bottom: var(--space-8);
+	}
+	.search {
+		width: 100%;
+		padding: var(--space-3) var(--space-4);
+		background: var(--veil);
+		border: 1px solid var(--ink-600);
+		border-radius: var(--radius);
+		color: var(--moon-100);
+		font-family: var(--font-ui);
+	}
+	.groups {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-6);
+	}
+	fieldset {
+		border: 0;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+		align-items: center;
+	}
+	legend {
+		float: left;
+		margin-right: var(--space-2);
+		font-family: var(--font-ui);
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		font-size: 0.66rem;
+		color: var(--moon-300);
+	}
+	button {
+		font-family: var(--font-ui);
+		font-size: 0.78rem;
+		padding: var(--space-1) var(--space-3);
+		background: transparent;
+		border: 1px solid var(--ink-600);
+		border-radius: 999px;
+		color: var(--moon-200);
+		cursor: pointer;
+		text-transform: capitalize;
+	}
+	button.on {
+		background: var(--candle);
+		color: var(--ink-900);
+		border-color: var(--candle);
+		box-shadow: var(--glow-candle);
+	}
+	.clear {
+		justify-self: start;
+	}
 </style>
 ```
 
@@ -931,7 +1227,12 @@ Create `src/routes/library/+page.svelte`:
 </section>
 
 <style>
-	.count { font-family: var(--font-ui); color: var(--moon-300); font-size: 0.8rem; margin: 0 0 var(--space-4); }
+	.count {
+		font-family: var(--font-ui);
+		color: var(--moon-300);
+		font-size: 0.8rem;
+		margin: 0 0 var(--space-4);
+	}
 </style>
 ```
 
@@ -955,9 +1256,11 @@ git commit -m "feat: library route with card grid, filters, and search"
 ### Task 8: Card detail panels — SymbolList, CorrespondencePanel, SourceList
 
 **Files:**
+
 - Create: `src/lib/components/SymbolList.svelte`, `src/lib/components/CorrespondencePanel.svelte`, `src/lib/components/SourceList.svelte`
 
 **Interfaces:**
+
 - Consumes: `CardContent` sub-objects.
 - Produces: `<SymbolList symbols={SymbolNote[]} />`; `<CorrespondencePanel correspondences={Correspondences} />`; `<SourceList sources={Source[]} />`.
 
@@ -976,10 +1279,30 @@ git commit -m "feat: library route with card grid, filters, and search"
 </ul>
 
 <style>
-	.symbols { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-3); }
-	li { display: grid; gap: var(--space-1); padding: var(--space-3) var(--space-4); background: var(--veil); border-radius: var(--radius); border-left: 2px solid var(--candle-soft); }
-	.sym { font-family: var(--font-display); font-size: 1.1rem; color: var(--moon-100); }
-	.mean { color: var(--moon-200); font-size: 0.95rem; }
+	.symbols {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: var(--space-3);
+	}
+	li {
+		display: grid;
+		gap: var(--space-1);
+		padding: var(--space-3) var(--space-4);
+		background: var(--veil);
+		border-radius: var(--radius);
+		border-left: 2px solid var(--candle-soft);
+	}
+	.sym {
+		font-family: var(--font-display);
+		font-size: 1.1rem;
+		color: var(--moon-100);
+	}
+	.mean {
+		color: var(--moon-200);
+		font-size: 0.95rem;
+	}
 </style>
 ```
 
@@ -997,7 +1320,12 @@ git commit -m "feat: library route with card grid, filters, and search"
 			['Planet', c.planet],
 			['Zodiac', c.zodiac],
 			['Decan', c.decan],
-			['Hebrew letter', c.hebrewLetter ? `${c.hebrewLetter.letter} ${c.hebrewLetter.name} (${c.hebrewLetter.meaning})` : undefined],
+			[
+				'Hebrew letter',
+				c.hebrewLetter
+					? `${c.hebrewLetter.letter} ${c.hebrewLetter.name} (${c.hebrewLetter.meaning})`
+					: undefined
+			],
 			['Tree of Life', c.treePath],
 			['Number', `${c.numerology.number} — ${c.numerology.meaning}`]
 		].filter(([, v]) => v) as [string, string][]
@@ -1007,14 +1335,30 @@ git commit -m "feat: library route with card grid, filters, and search"
 
 <dl class="corr" style="--accent:{elColor}">
 	{#each rows as [k, v]}
-		<dt>{k}</dt><dd>{v}</dd>
+		<dt>{k}</dt>
+		<dd>{v}</dd>
 	{/each}
 </dl>
 
 <style>
-	.corr { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-2) var(--space-4); margin: 0; }
-	dt { font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.68rem; color: var(--accent); align-self: baseline; }
-	dd { margin: 0; color: var(--moon-100); }
+	.corr {
+		display: grid;
+		grid-template-columns: max-content 1fr;
+		gap: var(--space-2) var(--space-4);
+		margin: 0;
+	}
+	dt {
+		font-family: var(--font-ui);
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		font-size: 0.68rem;
+		color: var(--accent);
+		align-self: baseline;
+	}
+	dd {
+		margin: 0;
+		color: var(--moon-100);
+	}
 </style>
 ```
 
@@ -1036,9 +1380,23 @@ git commit -m "feat: library route with card grid, filters, and search"
 </ul>
 
 <style>
-	.sources { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); }
-	a { font-family: var(--font-ui); color: var(--candle); font-size: 0.9rem; }
-	p { margin: var(--space-1) 0 0; color: var(--moon-300); font-size: 0.88rem; }
+	.sources {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: var(--space-4);
+	}
+	a {
+		font-family: var(--font-ui);
+		color: var(--candle);
+		font-size: 0.9rem;
+	}
+	p {
+		margin: var(--space-1) 0 0;
+		color: var(--moon-300);
+		font-size: 0.88rem;
+	}
 </style>
 ```
 
@@ -1058,10 +1416,12 @@ git commit -m "feat: card-detail panels (symbols, correspondences, sources)"
 ### Task 9: Card detail route `/card/[id]`
 
 **Files:**
+
 - Create: `src/routes/card/[id]/+page.ts`
 - Create: `src/routes/card/[id]/+page.svelte`
 
 **Interfaces:**
+
 - Consumes: `getCard`, `CARDS`, `TarotCard`, `SymbolList`, `CorrespondencePanel`, `SourceList`, progress store (marks card studied).
 - Produces: prerendered page per card id; `entries()` enumerates all 78.
 
@@ -1105,7 +1465,9 @@ Create `src/routes/card/[id]/+page.svelte`:
 
 	let { data }: { data: PageData } = $props();
 	const card = $derived(data.card);
-	$effect(() => { progress.markStudied(card.id); });
+	$effect(() => {
+		progress.markStudied(card.id);
+	});
 </script>
 
 <svelte:head><title>{card.name} · Moonlit Grimoire</title></svelte:head>
@@ -1114,41 +1476,82 @@ Create `src/routes/card/[id]/+page.svelte`:
 	<header class="hero">
 		<TarotCard {card} size="hero" flippable />
 		<div class="intro">
-			<p class="eyebrow">{card.arcana === 'major' ? `Major Arcana · ${card.number}` : `${card.suit}`}</p>
+			<p class="eyebrow">
+				{card.arcana === 'major' ? `Major Arcana · ${card.number}` : `${card.suit}`}
+			</p>
 			<h1>{card.name}</h1>
 			<p class="essence">{card.essence}</p>
-			<ul class="keywords">{#each card.keywords as k}<li>{k}</li>{/each}</ul>
+			<ul class="keywords">
+				{#each card.keywords as k}<li>{k}</li>{/each}
+			</ul>
 		</div>
 	</header>
 
-	<section><h2>Symbolism</h2><SymbolList symbols={card.symbolism} />
-		<p class="prose">{card.symbolismProse}</p></section>
-
-	<section class="two">
-		<div><h2>Upright</h2><p class="prose">{card.upright}</p></div>
-		<div><h2>Reversed</h2><p class="prose">{card.reversed}</p></div>
+	<section>
+		<h2>Symbolism</h2>
+		<SymbolList symbols={card.symbolism} />
+		<p class="prose">{card.symbolismProse}</p>
 	</section>
 
-	<section><h2>Correspondences</h2><CorrespondencePanel correspondences={card.correspondences} /></section>
+	<section class="two">
+		<div>
+			<h2>Upright</h2>
+			<p class="prose">{card.upright}</p>
+		</div>
+		<div>
+			<h2>Reversed</h2>
+			<p class="prose">{card.reversed}</p>
+		</div>
+	</section>
 
-	<section><h2>Archetype — {card.archetype.name}</h2><p class="prose">{card.archetype.description}</p></section>
+	<section>
+		<h2>Correspondences</h2>
+		<CorrespondencePanel correspondences={card.correspondences} />
+	</section>
 
-	<section><h2>Mythology</h2><p class="prose">{card.mythology}</p></section>
+	<section>
+		<h2>Archetype — {card.archetype.name}</h2>
+		<p class="prose">{card.archetype.description}</p>
+	</section>
 
-	<section><h2>Nature</h2>
-		<p class="prose"><strong>Herbs:</strong> {card.nature.herbs.join(', ')}<br />
-		<strong>Crystals:</strong> {card.nature.crystals.join(', ')}{#if card.nature.season}<br /><strong>Season:</strong> {card.nature.season}{/if}</p>
-		{#if card.nature.note}<p class="prose">{card.nature.note}</p>{/if}</section>
+	<section>
+		<h2>Mythology</h2>
+		<p class="prose">{card.mythology}</p>
+	</section>
+
+	<section>
+		<h2>Nature</h2>
+		<p class="prose">
+			<strong>Herbs:</strong>
+			{card.nature.herbs.join(', ')}<br />
+			<strong>Crystals:</strong>
+			{card.nature.crystals.join(', ')}{#if card.nature.season}<br /><strong>Season:</strong>
+				{card.nature.season}{/if}
+		</p>
+		{#if card.nature.note}<p class="prose">{card.nature.note}</p>{/if}
+	</section>
 
 	<section class="lightshadow">
-		<div><h3>Light</h3><p>{card.lightShadow.light}</p></div>
-		<div><h3>Shadow</h3><p>{card.lightShadow.shadow}</p></div>
+		<div>
+			<h3>Light</h3>
+			<p>{card.lightShadow.light}</p>
+		</div>
+		<div>
+			<h3>Shadow</h3>
+			<p>{card.lightShadow.shadow}</p>
+		</div>
 		<p class="affirm">“{card.lightShadow.affirmation}”</p>
 	</section>
 
-	{#if card.journey}<section><h2>The Fool's Journey</h2><p class="prose">{card.journey}</p></section>{/if}
+	{#if card.journey}<section>
+			<h2>The Fool's Journey</h2>
+			<p class="prose">{card.journey}</p>
+		</section>{/if}
 
-	<section><h2>Sources & further reading</h2><SourceList sources={card.sources} /></section>
+	<section>
+		<h2>Sources & further reading</h2>
+		<SourceList sources={card.sources} />
+	</section>
 
 	<nav class="pager">
 		<a href="/card/{data.prev.id}">← {data.prev.name}</a>
@@ -1158,17 +1561,71 @@ Create `src/routes/card/[id]/+page.svelte`:
 </article>
 
 <style>
-	.detail { display: grid; gap: var(--space-12); }
-	.hero { display: grid; grid-template-columns: minmax(0, 360px) 1fr; gap: var(--space-8); align-items: center; }
-	.essence { font-size: 1.2rem; color: var(--moon-100); font-style: italic; }
-	.keywords { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); padding: 0; }
-	.keywords li { font-family: var(--font-ui); font-size: 0.74rem; padding: var(--space-1) var(--space-3); border: 1px solid var(--ink-600); border-radius: 999px; color: var(--moon-200); }
-	.prose { max-width: 60ch; }
-	.two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
-	.lightshadow { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
-	.affirm { grid-column: 1 / -1; font-family: var(--font-display); font-size: 1.3rem; color: var(--candle); text-align: center; }
-	.pager { display: flex; justify-content: space-between; gap: var(--space-4); font-family: var(--font-ui); border-top: 1px solid var(--ink-600); padding-top: var(--space-6); }
-	@media (max-width: 720px) { .hero, .two, .lightshadow { grid-template-columns: 1fr; } }
+	.detail {
+		display: grid;
+		gap: var(--space-12);
+	}
+	.hero {
+		display: grid;
+		grid-template-columns: minmax(0, 360px) 1fr;
+		gap: var(--space-8);
+		align-items: center;
+	}
+	.essence {
+		font-size: 1.2rem;
+		color: var(--moon-100);
+		font-style: italic;
+	}
+	.keywords {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+		padding: 0;
+	}
+	.keywords li {
+		font-family: var(--font-ui);
+		font-size: 0.74rem;
+		padding: var(--space-1) var(--space-3);
+		border: 1px solid var(--ink-600);
+		border-radius: 999px;
+		color: var(--moon-200);
+	}
+	.prose {
+		max-width: 60ch;
+	}
+	.two {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-8);
+	}
+	.lightshadow {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-6);
+	}
+	.affirm {
+		grid-column: 1 / -1;
+		font-family: var(--font-display);
+		font-size: 1.3rem;
+		color: var(--candle);
+		text-align: center;
+	}
+	.pager {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--space-4);
+		font-family: var(--font-ui);
+		border-top: 1px solid var(--ink-600);
+		padding-top: var(--space-6);
+	}
+	@media (max-width: 720px) {
+		.hero,
+		.two,
+		.lightshadow {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>
 ```
 
@@ -1193,10 +1650,12 @@ git commit -m "feat: card detail route with full content and prev/next, prerende
 ### Task 10: Progress store (localStorage, SSR-safe, tested)
 
 **Files:**
+
 - Create: `src/lib/stores/progress.svelte.ts`
 - Test: `src/lib/stores/progress.test.ts`
 
 **Interfaces:**
+
 - Produces: a singleton `progress` with reactive `studied: string[]`, `favorites: string[]`, `journeyIndex: number`, `lastCardId: string | null`; methods `markStudied(id)`, `toggleFavorite(id)`, `isStudied(id): boolean`, `isFavorite(id): boolean`, `setJourneyIndex(n)`, `reset()`. SSR-safe (no `window` access during prerender); persists to `localStorage` key `moonlit-grimoire`.
 
 - [ ] **Step 1: Write the failing store test**
@@ -1209,7 +1668,10 @@ import { createProgress } from './progress.svelte';
 
 describe('progress store', () => {
 	let p: ReturnType<typeof createProgress>;
-	beforeEach(() => { localStorage.clear(); p = createProgress(); });
+	beforeEach(() => {
+		localStorage.clear();
+		p = createProgress();
+	});
 
 	it('marks a card studied idempotently', () => {
 		p.markStudied('the-moon');
@@ -1249,7 +1711,12 @@ import { browser } from '$app/environment';
 
 const KEY = 'moonlit-grimoire';
 
-type State = { studied: string[]; favorites: string[]; journeyIndex: number; lastCardId: string | null };
+type State = {
+	studied: string[];
+	favorites: string[];
+	journeyIndex: number;
+	lastCardId: string | null;
+};
 const empty = (): State => ({ studied: [], favorites: [], journeyIndex: 0, lastCardId: null });
 
 export function createProgress() {
@@ -1260,18 +1727,32 @@ export function createProgress() {
 		try {
 			const raw = localStorage.getItem(KEY);
 			return raw ? { ...empty(), ...JSON.parse(raw) } : empty();
-		} catch { return empty(); }
+		} catch {
+			return empty();
+		}
 	}
 	function persist() {
 		if (!browser) return;
-		try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* ignore quota */ }
+		try {
+			localStorage.setItem(KEY, JSON.stringify(state));
+		} catch {
+			/* ignore quota */
+		}
 	}
 
 	return {
-		get studied() { return state.studied; },
-		get favorites() { return state.favorites; },
-		get journeyIndex() { return state.journeyIndex; },
-		get lastCardId() { return state.lastCardId; },
+		get studied() {
+			return state.studied;
+		},
+		get favorites() {
+			return state.favorites;
+		},
+		get journeyIndex() {
+			return state.journeyIndex;
+		},
+		get lastCardId() {
+			return state.lastCardId;
+		},
 		isStudied: (id: string) => state.studied.includes(id),
 		isFavorite: (id: string) => state.favorites.includes(id),
 		markStudied(id: string) {
@@ -1285,8 +1766,14 @@ export function createProgress() {
 				: [...state.favorites, id];
 			persist();
 		},
-		setJourneyIndex(n: number) { state.journeyIndex = n; persist(); },
-		reset() { state = empty(); persist(); }
+		setJourneyIndex(n: number) {
+			state.journeyIndex = n;
+			persist();
+		},
+		reset() {
+			state = empty();
+			persist();
+		}
 	};
 }
 
@@ -1310,10 +1797,12 @@ git commit -m "feat: SSR-safe localStorage progress store with tests"
 ### Task 11: Fool's Journey route + ProgressTracker
 
 **Files:**
+
 - Create: `src/lib/components/ProgressTracker.svelte`
 - Create: `src/routes/journey/+page.svelte`
 
 **Interfaces:**
+
 - Consumes: `MAJOR_ARCANA`, `progress`, `TarotCard`.
 - Produces: `<ProgressTracker total studied />` (a studied-count bar); a guided walk through the 22 Majors in order, stepping via the store's `journeyIndex`, persisting position.
 
@@ -1325,15 +1814,40 @@ git commit -m "feat: SSR-safe localStorage progress store with tests"
 	const pct = $derived(Math.round((studied / total) * 100));
 </script>
 
-<div class="track" role="progressbar" aria-valuenow={studied} aria-valuemin={0} aria-valuemax={total} aria-label="Cards studied">
+<div
+	class="track"
+	role="progressbar"
+	aria-valuenow={studied}
+	aria-valuemin={0}
+	aria-valuemax={total}
+	aria-label="Cards studied"
+>
 	<div class="fill" style="width:{pct}%"></div>
 	<span class="label">{studied} / {total} studied</span>
 </div>
 
 <style>
-	.track { position: relative; height: 10px; background: var(--ink-600); border-radius: 999px; overflow: hidden; }
-	.fill { height: 100%; background: linear-gradient(90deg, var(--amethyst), var(--candle)); box-shadow: var(--glow-candle); transition: width 0.4s ease; }
-	.label { position: absolute; right: 0; top: 14px; font-family: var(--font-ui); font-size: 0.72rem; color: var(--moon-300); }
+	.track {
+		position: relative;
+		height: 10px;
+		background: var(--ink-600);
+		border-radius: 999px;
+		overflow: hidden;
+	}
+	.fill {
+		height: 100%;
+		background: linear-gradient(90deg, var(--amethyst), var(--candle));
+		box-shadow: var(--glow-candle);
+		transition: width 0.4s ease;
+	}
+	.label {
+		position: absolute;
+		right: 0;
+		top: 14px;
+		font-family: var(--font-ui);
+		font-size: 0.72rem;
+		color: var(--moon-300);
+	}
 </style>
 ```
 
@@ -1357,7 +1871,9 @@ Create `src/routes/journey/+page.svelte`:
 		progress.setJourneyIndex(i);
 		progress.markStudied(steps[i].id);
 	}
-	$effect(() => { progress.markStudied(card.id); });
+	$effect(() => {
+		progress.markStudied(card.id);
+	});
 </script>
 
 <svelte:head><title>The Fool's Journey · Moonlit Grimoire</title></svelte:head>
@@ -1383,14 +1899,47 @@ Create `src/routes/journey/+page.svelte`:
 </section>
 
 <style>
-	.journey { display: grid; gap: var(--space-8); }
-	.stage { display: grid; grid-template-columns: minmax(0, 320px) 1fr; gap: var(--space-8); align-items: center; }
-	.essence { font-family: var(--font-display); font-size: 1.4rem; color: var(--moon-100); }
-	.more { font-family: var(--font-ui); color: var(--candle); }
-	.steps { display: flex; justify-content: space-between; }
-	button { font-family: var(--font-ui); padding: var(--space-2) var(--space-4); background: var(--veil); border: 1px solid var(--ink-600); border-radius: 999px; color: var(--moon-100); cursor: pointer; }
-	button:disabled { opacity: 0.4; cursor: default; }
-	@media (max-width: 720px) { .stage { grid-template-columns: 1fr; } }
+	.journey {
+		display: grid;
+		gap: var(--space-8);
+	}
+	.stage {
+		display: grid;
+		grid-template-columns: minmax(0, 320px) 1fr;
+		gap: var(--space-8);
+		align-items: center;
+	}
+	.essence {
+		font-family: var(--font-display);
+		font-size: 1.4rem;
+		color: var(--moon-100);
+	}
+	.more {
+		font-family: var(--font-ui);
+		color: var(--candle);
+	}
+	.steps {
+		display: flex;
+		justify-content: space-between;
+	}
+	button {
+		font-family: var(--font-ui);
+		padding: var(--space-2) var(--space-4);
+		background: var(--veil);
+		border: 1px solid var(--ink-600);
+		border-radius: 999px;
+		color: var(--moon-100);
+		cursor: pointer;
+	}
+	button:disabled {
+		opacity: 0.4;
+		cursor: default;
+	}
+	@media (max-width: 720px) {
+		.stage {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>
 ```
 
@@ -1414,10 +1963,12 @@ git commit -m "feat: Fool's Journey route with persistent progress tracking"
 ### Task 12: The Altar (home) and About pages
 
 **Files:**
+
 - Modify: `src/routes/+page.svelte`
 - Create: `src/routes/about/+page.svelte`
 
 **Interfaces:**
+
 - Consumes: `getCard`, `progress`, `MoonPhase`.
 
 - [ ] **Step 1: Implement the Altar home page**
@@ -1437,24 +1988,75 @@ Replace `src/routes/+page.svelte`:
 <section class="altar container">
 	<MoonPhase size={140} />
 	<h1>The Moonlit Grimoire</h1>
-	<p class="lede">A sacred study of the seventy-eight cards — their symbols, numbers, stars, and the many traditions that illuminate them. One card at a time.</p>
+	<p class="lede">
+		A sacred study of the seventy-eight cards — their symbols, numbers, stars, and the many
+		traditions that illuminate them. One card at a time.
+	</p>
 	<div class="doors">
-		<a class="door" href="/library"><span>Enter the Deck</span><small>Browse & filter all 78 cards</small></a>
-		<a class="door" href="/journey"><span>Walk the Fool's Journey</span><small>The 22 Majors, in order</small></a>
-		{#if last}<a class="door" href="/card/{last.id}"><span>Continue</span><small>{last.name}</small></a>{/if}
+		<a class="door" href="/library"
+			><span>Enter the Deck</span><small>Browse & filter all 78 cards</small></a
+		>
+		<a class="door" href="/journey"
+			><span>Walk the Fool's Journey</span><small>The 22 Majors, in order</small></a
+		>
+		{#if last}<a class="door" href="/card/{last.id}"
+				><span>Continue</span><small>{last.name}</small></a
+			>{/if}
 	</div>
 	<a class="about-link" href="/about">About the sources & traditions</a>
 </section>
 
 <style>
-	.altar { min-height: 90vh; display: grid; place-content: center; justify-items: center; text-align: center; gap: var(--space-6); }
-	.lede { max-width: 48ch; color: var(--moon-200); font-size: 1.15rem; }
-	.doors { display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: center; margin-top: var(--space-4); }
-	.door { display: grid; gap: var(--space-1); padding: var(--space-6) var(--space-8); background: var(--veil); border: 1px solid var(--ink-600); border-radius: var(--radius-lg); min-width: 220px; transition: box-shadow 0.3s, transform 0.3s; }
-	.door:hover { box-shadow: var(--glow-moon); transform: translateY(-3px); }
-	.door span { font-family: var(--font-display); font-size: 1.3rem; color: var(--moon-100); }
-	.door small { font-family: var(--font-ui); color: var(--moon-300); }
-	.about-link { font-family: var(--font-ui); font-size: 0.85rem; color: var(--moon-300); }
+	.altar {
+		min-height: 90vh;
+		display: grid;
+		place-content: center;
+		justify-items: center;
+		text-align: center;
+		gap: var(--space-6);
+	}
+	.lede {
+		max-width: 48ch;
+		color: var(--moon-200);
+		font-size: 1.15rem;
+	}
+	.doors {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-4);
+		justify-content: center;
+		margin-top: var(--space-4);
+	}
+	.door {
+		display: grid;
+		gap: var(--space-1);
+		padding: var(--space-6) var(--space-8);
+		background: var(--veil);
+		border: 1px solid var(--ink-600);
+		border-radius: var(--radius-lg);
+		min-width: 220px;
+		transition:
+			box-shadow 0.3s,
+			transform 0.3s;
+	}
+	.door:hover {
+		box-shadow: var(--glow-moon);
+		transform: translateY(-3px);
+	}
+	.door span {
+		font-family: var(--font-display);
+		font-size: 1.3rem;
+		color: var(--moon-100);
+	}
+	.door small {
+		font-family: var(--font-ui);
+		color: var(--moon-300);
+	}
+	.about-link {
+		font-family: var(--font-ui);
+		font-size: 0.85rem;
+		color: var(--moon-300);
+	}
 </style>
 ```
 
@@ -1468,23 +2070,63 @@ Create `src/routes/about/+page.svelte`:
 <section class="container about">
 	<p class="eyebrow">About</p>
 	<h1>Sources & traditions</h1>
-	<p>The Moonlit Grimoire teaches the Rider–Waite–Smith tarot, illustrated by Pamela Colman Smith (1909, public domain). Card meanings draw primarily on the Rider–Waite–Smith / Hermetic Order of the Golden Dawn tradition, enriched with numerology, astrology, qabalah, mythology, and herbal/Wiccan correspondences.</p>
+	<p>
+		The Moonlit Grimoire teaches the Rider–Waite–Smith tarot, illustrated by Pamela Colman Smith
+		(1909, public domain). Card meanings draw primarily on the Rider–Waite–Smith / Hermetic Order of
+		the Golden Dawn tradition, enriched with numerology, astrology, qabalah, mythology, and
+		herbal/Wiccan correspondences.
+	</p>
 	<h2>Canonical references</h2>
 	<ul>
-		<li><a href="https://en.wikisource.org/wiki/The_Pictorial_Key_to_the_Tarot" target="_blank" rel="noopener noreferrer">A.E. Waite — The Pictorial Key to the Tarot (1911)</a></li>
-		<li><a href="https://www.learntarot.com/" target="_blank" rel="noopener noreferrer">Joan Bunning — Learning the Tarot</a></li>
-		<li><a href="https://en.wikipedia.org/wiki/Hermetic_Qabalah" target="_blank" rel="noopener noreferrer">Golden Dawn / Hermetic Qabalah correspondences</a></li>
+		<li>
+			<a
+				href="https://en.wikisource.org/wiki/The_Pictorial_Key_to_the_Tarot"
+				target="_blank"
+				rel="noopener noreferrer">A.E. Waite — The Pictorial Key to the Tarot (1911)</a
+			>
+		</li>
+		<li>
+			<a href="https://www.learntarot.com/" target="_blank" rel="noopener noreferrer"
+				>Joan Bunning — Learning the Tarot</a
+			>
+		</li>
+		<li>
+			<a
+				href="https://en.wikipedia.org/wiki/Hermetic_Qabalah"
+				target="_blank"
+				rel="noopener noreferrer">Golden Dawn / Hermetic Qabalah correspondences</a
+			>
+		</li>
 	</ul>
-	<p class="note">These are <em>traditional attributions across many schools</em>, offered for study — not a single dogma. Every card links to its own sources for deeper reading.</p>
+	<p class="note">
+		These are <em>traditional attributions across many schools</em>, offered for study — not a
+		single dogma. Every card links to its own sources for deeper reading.
+	</p>
 	<h2>Art</h2>
-	<p>Card images: Rider–Waite–Smith deck, public domain, via <a href="https://commons.wikimedia.org/wiki/Category:Rider-Waite_tarot_deck" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.</p>
+	<p>
+		Card images: Rider–Waite–Smith deck, public domain, via <a
+			href="https://commons.wikimedia.org/wiki/Category:Rider-Waite_tarot_deck"
+			target="_blank"
+			rel="noopener noreferrer">Wikimedia Commons</a
+		>.
+	</p>
 </section>
 
 <style>
-	.about { max-width: 56rem; }
-	.about p, .about li { max-width: 65ch; }
-	.note { color: var(--moon-300); font-style: italic; }
-	a { color: var(--candle); }
+	.about {
+		max-width: 56rem;
+	}
+	.about p,
+	.about li {
+		max-width: 65ch;
+	}
+	.note {
+		color: var(--moon-300);
+		font-style: italic;
+	}
+	a {
+		color: var(--candle);
+	}
 </style>
 ```
 
@@ -1509,10 +2151,12 @@ git commit -m "feat: Altar home with continue-where-left-off and About page"
 ### Task 13: End-to-end tests (Playwright)
 
 **Files:**
+
 - Create: `e2e/grimoire.test.ts`
 - Modify: `playwright.config.ts` (ensure `webServer` builds & previews, or runs dev)
 
 **Interfaces:**
+
 - Consumes: the running app.
 
 - [ ] **Step 1: Confirm Playwright webServer config**
@@ -1541,7 +2185,10 @@ test('library filters and opens a card', async ({ page }) => {
 	await expect(page.getByText('78 cards')).toBeVisible();
 	await page.getByRole('button', { name: 'Cups' }).click();
 	await expect(page.getByText('14 cards')).toBeVisible();
-	await page.getByRole('link', { name: /Ace of Cups/ }).first().click();
+	await page
+		.getByRole('link', { name: /Ace of Cups/ })
+		.first()
+		.click();
 	await expect(page.getByRole('heading', { level: 1, name: 'Ace of Cups' })).toBeVisible();
 	await expect(page.getByRole('heading', { name: /Sources & further reading/ })).toBeVisible();
 });
@@ -1558,9 +2205,13 @@ test('journey advances and persists across reload', async ({ page }) => {
 	await page.goto('/journey');
 	await expect(page.getByRole('heading', { level: 1, name: /Step 0 · The Fool/ })).toBeVisible();
 	await page.getByRole('button', { name: 'Next →' }).click();
-	await expect(page.getByRole('heading', { level: 1, name: /Step 1 · The Magician/ })).toBeVisible();
+	await expect(
+		page.getByRole('heading', { level: 1, name: /Step 1 · The Magician/ })
+	).toBeVisible();
 	await page.reload();
-	await expect(page.getByRole('heading', { level: 1, name: /Step 1 · The Magician/ })).toBeVisible();
+	await expect(
+		page.getByRole('heading', { level: 1, name: /Step 1 · The Magician/ })
+	).toBeVisible();
 });
 ```
 
@@ -1607,6 +2258,7 @@ git commit -m "polish: lint/type/reduced-motion/responsive fixes"
 ## Self-Review
 
 **Spec coverage:**
+
 - Routes `/`, `/library`, `/card/[id]`, `/journey`, `/about` → Tasks 12, 7, 9, 11, 12. ✓
 - All 78 cards + content + sources → existing data layer; guarded by Task 4. ✓
 - Filtering (arcana/suit/element/planet) + search → Task 3 (logic) + Task 7 (UI). ✓

@@ -3,7 +3,10 @@ import { createProgress } from './progress.svelte';
 
 describe('progress store', () => {
 	let p: ReturnType<typeof createProgress>;
-	beforeEach(() => { localStorage.clear(); p = createProgress(); });
+	beforeEach(() => {
+		localStorage.clear();
+		p = createProgress();
+	});
 
 	it('marks a card studied idempotently', () => {
 		p.markStudied('the-moon');

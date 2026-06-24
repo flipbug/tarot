@@ -19,5 +19,10 @@
 </section>
 
 <style>
-	.count { font-family: var(--font-ui); color: var(--moon-300); font-size: 0.8rem; margin: 0 0 var(--space-4); }
+	.count {
+		font-family: var(--font-ui);
+		color: var(--moon-300);
+		font-size: 0.8rem;
+		margin: 0 0 var(--space-4);
+	}
 </style>

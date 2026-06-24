@@ -13,7 +13,21 @@
 </ul>
 
 <style>
-	.sources { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); }
-	a { font-family: var(--font-ui); color: var(--candle); font-size: 0.9rem; }
-	p { margin: var(--space-1) 0 0; color: var(--moon-300); font-size: 0.88rem; }
+	.sources {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: var(--space-4);
+	}
+	a {
+		font-family: var(--font-ui);
+		color: var(--candle);
+		font-size: 0.9rem;
+	}
+	p {
+		margin: var(--space-1) 0 0;
+		color: var(--moon-300);
+		font-size: 0.88rem;
+	}
 </style>

@@ -1,7 +1,11 @@
 <script lang="ts">
 	import type { CardContent } from '$lib/data';
 
-	let { card, size = 'thumb', flippable = false }: {
+	let {
+		card,
+		size = 'thumb',
+		flippable = false
+	}: {
 		card: CardContent;
 		size?: 'thumb' | 'hero';
 		flippable?: boolean;
@@ -26,10 +30,21 @@
 		gy = py * 100;
 		active = true;
 	}
-	function reset() { rx = 0; ry = 0; gx = 50; gy = 50; active = false; }
-	function flip() { if (flippable) flipped = !flipped; }
+	function reset() {
+		rx = 0;
+		ry = 0;
+		gx = 50;
+		gy = 50;
+		active = false;
+	}
+	function flip() {
+		if (flippable) flipped = !flipped;
+	}
 	function onkey(e: KeyboardEvent) {
-		if (flippable && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); flip(); }
+		if (flippable && (e.key === 'Enter' || e.key === ' ')) {
+			e.preventDefault();
+			flip();
+		}
 	}
 </script>
 
@@ -60,34 +75,87 @@
 </div>
 
 <style>
-	.card { perspective: 1000px; width: 100%; aspect-ratio: 0.585; }
-	.hero { max-width: 360px; }
+	.card {
+		perspective: 1000px;
+		width: 100%;
+		aspect-ratio: 0.585;
+	}
+	.hero {
+		max-width: 360px;
+	}
 	.inner {
-		position: relative; width: 100%; height: 100%;
+		position: relative;
+		width: 100%;
+		height: 100%;
 		transform-style: preserve-3d;
 		transform: rotateX(var(--rx)) rotateY(var(--ry));
 		transition: transform 0.25s ease;
 		border-radius: var(--radius);
 	}
-	.active .inner { transition: transform 0.05s linear; }
-	.flipped .inner { transform: rotateY(180deg); }
+	.active .inner {
+		transition: transform 0.05s linear;
+	}
+	.flipped .inner {
+		transform: rotateY(180deg);
+	}
 	.face {
-		position: absolute; inset: 0; backface-visibility: hidden;
-		border-radius: var(--radius); overflow: hidden;
+		position: absolute;
+		inset: 0;
+		backface-visibility: hidden;
+		border-radius: var(--radius);
+		overflow: hidden;
 		box-shadow: var(--glow-moon);
 	}
-	.front img { display: block; width: 100%; height: 100%; object-fit: cover; }
-	.foil {
-		position: absolute; inset: 0; mix-blend-mode: color-dodge; opacity: 0; transition: opacity 0.2s;
-		background: radial-gradient(circle at var(--gx) var(--gy), var(--foil-warm), var(--foil-cool) 40%, transparent 70%);
+	.front img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
-	.active .foil { opacity: 0.9; }
-	.edge { position: absolute; inset: 0; border-radius: var(--radius); box-shadow: inset 0 0 0 1px var(--edge-line); }
-	.back { transform: rotateY(180deg); display: grid; place-items: center; background: radial-gradient(circle, var(--ink-600), var(--ink-800)); }
-	.sigil { font-size: 3rem; color: var(--silver); text-shadow: var(--glow-moon); }
+	.foil {
+		position: absolute;
+		inset: 0;
+		mix-blend-mode: color-dodge;
+		opacity: 0;
+		transition: opacity 0.2s;
+		background: radial-gradient(
+			circle at var(--gx) var(--gy),
+			var(--foil-warm),
+			var(--foil-cool) 40%,
+			transparent 70%
+		);
+	}
+	.active .foil {
+		opacity: 0.9;
+	}
+	.edge {
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius);
+		box-shadow: inset 0 0 0 1px var(--edge-line);
+	}
+	.back {
+		transform: rotateY(180deg);
+		display: grid;
+		place-items: center;
+		background: radial-gradient(circle, var(--ink-600), var(--ink-800));
+	}
+	.sigil {
+		font-size: 3rem;
+		color: var(--silver);
+		text-shadow: var(--glow-moon);
+	}
 	@media (prefers-reduced-motion: reduce) {
-		.inner, .active .inner { transition: none; transform: none; }
-		.flipped .inner { transform: rotateY(180deg); }
-		.foil { display: none; }
+		.inner,
+		.active .inner {
+			transition: none;
+			transform: none;
+		}
+		.flipped .inner {
+			transform: rotateY(180deg);
+		}
+		.foil {
+			display: none;
+		}
 	}
 </style>

@@ -19,6 +19,7 @@ This is a learning tool first. Divination/readings are explicitly out of scope f
 ## 2. Goals & Non-Goals
 
 ### Goals (v1)
+
 - All **78 cards** (22 Major Arcana + 56 Minor Arcana) with rich, sourced content.
 - A browsable **Library** with filtering (arcana, suit, element, planet/sign) and search.
 - A **Card detail** view with an animated CSS-3D card and layered, digestible content.
@@ -28,6 +29,7 @@ This is a learning tool first. Divination/readings are explicitly out of scope f
 - Fully **prerendered static site**, works offline, no backend, no accounts.
 
 ### Non-Goals (v1 — explicitly deferred)
+
 - Readings / spreads / interpretation of drawn cards.
 - WebGL / Three.js immersive 3D scene.
 - User accounts, cloud sync, multi-device.
@@ -41,13 +43,13 @@ This is a learning tool first. Divination/readings are explicitly out of scope f
 
 All routes are prerendered.
 
-| Route | Name | Purpose |
-|---|---|---|
-| `/` | **The Altar** | Atmospheric landing; moon-phase motif; enter Library or Journey; "continue where you left off." |
-| `/library` | **The Deck** | All 78 cards as a luminous, floating grid. Filter by arcana / suit / element / planet-sign; text search by name & keyword. |
-| `/card/[id]` | **The Card** | Centerpiece: large 3D card + layered multi-tradition reading + Sources panel. Prev/next within current context. |
-| `/journey` | **The Fool's Journey** | Guided sequential path through the 22 Majors (then suit by suit), with progress and a gentle "next step." |
-| `/about` | **About** | Canonical reference works, public-domain art attribution, statement that correspondences are traditional attributions across schools (not single dogma). |
+| Route        | Name                   | Purpose                                                                                                                                                  |
+| ------------ | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`          | **The Altar**          | Atmospheric landing; moon-phase motif; enter Library or Journey; "continue where you left off."                                                          |
+| `/library`   | **The Deck**           | All 78 cards as a luminous, floating grid. Filter by arcana / suit / element / planet-sign; text search by name & keyword.                               |
+| `/card/[id]` | **The Card**           | Centerpiece: large 3D card + layered multi-tradition reading + Sources panel. Prev/next within current context.                                          |
+| `/journey`   | **The Fool's Journey** | Guided sequential path through the 22 Majors (then suit by suit), with progress and a gentle "next step."                                                |
+| `/about`     | **About**              | Canonical reference works, public-domain art attribution, statement that correspondences are traditional attributions across schools (not single dogma). |
 
 ---
 
@@ -57,69 +59,83 @@ Every card is a typed object in `src/lib/data/cards/`. The schema is designed so
 
 ```ts
 type Element = 'fire' | 'water' | 'air' | 'earth' | 'spirit';
-type Arcana  = 'major' | 'minor';
-type Suit    = 'wands' | 'cups' | 'swords' | 'pentacles';
-type Rank    = 'ace' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven'
-             | 'eight' | 'nine' | 'ten' | 'page' | 'knight' | 'queen' | 'king';
+type Arcana = 'major' | 'minor';
+type Suit = 'wands' | 'cups' | 'swords' | 'pentacles';
+type Rank =
+	| 'ace'
+	| 'two'
+	| 'three'
+	| 'four'
+	| 'five'
+	| 'six'
+	| 'seven'
+	| 'eight'
+	| 'nine'
+	| 'ten'
+	| 'page'
+	| 'knight'
+	| 'queen'
+	| 'king';
 
 interface Source {
-  title: string;   // e.g. "Waite — The Pictorial Key to the Tarot (1911)"
-  url: string;     // stable, verified-resolvable link
-  note: string;    // what the reader finds there / why it matters
+	title: string; // e.g. "Waite — The Pictorial Key to the Tarot (1911)"
+	url: string; // stable, verified-resolvable link
+	note: string; // what the reader finds there / why it matters
 }
 
 interface SymbolNote {
-  symbol: string;  // a discrete element in the image, e.g. "The white rose"
-  meaning: string; // its short, specific significance
+	symbol: string; // a discrete element in the image, e.g. "The white rose"
+	meaning: string; // its short, specific significance
 }
 
 interface Correspondences {
-  element: Element;
-  zodiac?: string;                 // e.g. "Pisces"
-  planet?: string;                 // e.g. "Moon"
-  decan?: string;                  // minors: e.g. "3rd decan of Pisces (Mars)"
-  hebrewLetter?: { letter: string; name: string; meaning: string };  // majors
-  treePath?: string;               // majors: path between sephiroth; minors: sephira
-  numerology: { number: number; meaning: string };
+	element: Element;
+	zodiac?: string; // e.g. "Pisces"
+	planet?: string; // e.g. "Moon"
+	decan?: string; // minors: e.g. "3rd decan of Pisces (Mars)"
+	hebrewLetter?: { letter: string; name: string; meaning: string }; // majors
+	treePath?: string; // majors: path between sephiroth; minors: sephira
+	numerology: { number: number; meaning: string };
 }
 
 interface CardContent {
-  // identity
-  id: string;            // kebab e.g. "the-moon", "ace-of-cups", "queen-of-wands"
-  name: string;
-  arcana: Arcana;
-  number: number;        // 0–21 majors; 1–10 / 11–14 court for minors
-  suit?: Suit;           // minors only
-  rank?: Rank;           // minors only
-  image: string;         // "/cards/the-moon.jpg"
+	// identity
+	id: string; // kebab e.g. "the-moon", "ace-of-cups", "queen-of-wands"
+	name: string;
+	arcana: Arcana;
+	number: number; // 0–21 majors; 1–10 / 11–14 court for minors
+	suit?: Suit; // minors only
+	rank?: Rank; // minors only
+	image: string; // "/cards/the-moon.jpg"
 
-  // the heart — immersive but digestible
-  essence: string;          // 1–2 evocative sentences capturing the card's core
-  symbolism: SymbolNote[];  // 4–8 discrete, scannable image symbols
-  symbolismProse: string;   // 2–3 SHORT paragraphs weaving the symbols together
+	// the heart — immersive but digestible
+	essence: string; // 1–2 evocative sentences capturing the card's core
+	symbolism: SymbolNote[]; // 4–8 discrete, scannable image symbols
+	symbolismProse: string; // 2–3 SHORT paragraphs weaving the symbols together
 
-  // meanings (kept short; 1–2 paragraphs each)
-  keywords: string[];
-  keywordsReversed: string[];
-  upright: string;
-  reversed: string;
+	// meanings (kept short; 1–2 paragraphs each)
+	keywords: string[];
+	keywordsReversed: string[];
+	upright: string;
+	reversed: string;
 
-  // the many traditions
-  correspondences: Correspondences;
-  mythology: string;        // SPECIFIC deities, myths, named figures (short)
-  archetype: { name: string; description: string };  // the UNIVERSAL / psychological archetype (Jung / Campbell) the card embodies — distinct from mythology
-  nature: { herbs: string[]; crystals: string[]; season?: string; note?: string };
-  lightShadow: { light: string; shadow: string; affirmation: string };
-  journey?: string;         // Fool's Journey context (majors only)
+	// the many traditions
+	correspondences: Correspondences;
+	mythology: string; // SPECIFIC deities, myths, named figures (short)
+	archetype: { name: string; description: string }; // the UNIVERSAL / psychological archetype (Jung / Campbell) the card embodies — distinct from mythology
+	nature: { herbs: string[]; crystals: string[]; season?: string; note?: string };
+	lightShadow: { light: string; shadow: string; affirmation: string };
+	journey?: string; // Fool's Journey context (majors only)
 
-  // trust
-  sources: Source[];        // 2–4 verified sources
+	// trust
+	sources: Source[]; // 2–4 verified sources
 }
 ```
 
 **Content authored for all 78 cards**, drawing primarily from the established **Rider–Waite–Smith / Golden Dawn** tradition (the standard, well-documented correspondence system) plus numerological, mythological, and herbal/nature lenses.
 
 **Expansive & mystical, yet digestible** is a hard content rule:
+
 - `essence` is the hook — one or two luminous sentences.
 - `symbolism` is a list of 5–9 discrete, scannable symbol→meaning notes (the UI can render these as an interactive list keyed to regions of the card). Later esoteric/visual readings are marked as interpretation, not attributed to Waite.
 - `symbolismProse` ≤ 180 words (2–3 short paragraphs).
@@ -132,16 +148,18 @@ interface CardContent {
 ## 5. Sourcing & Content Authoring Strategy
 
 ### 5.1 Sourcing principle — grounded in truth, never fabricated
+
 Every card cites **2–4 real, verifiable sources**, prioritizing public-domain primary texts and stable encyclopedic references:
 
-- **A.E. Waite — *The Pictorial Key to the Tarot* (1911)** (sacred-texts.com) — canonical RWS source, with a section per card. Bedrock for symbolism & divinatory meaning.
+- **A.E. Waite — _The Pictorial Key to the Tarot_ (1911)** (sacred-texts.com) — canonical RWS source, with a section per card. Bedrock for symbolism & divinatory meaning.
 - **Wikipedia** — per-card / per-suit articles for historical and cross-tradition context.
-- **Joan Bunning — *Learning the Tarot*** (learntarot.com, free) — per-card study pages.
-- **Golden Dawn / Hermetic** material (*Book T*, Crowley's *777*) for astrology & qabalah attributions, where a stable public link exists.
+- **Joan Bunning — _Learning the Tarot_** (learntarot.com, free) — per-card study pages.
+- **Golden Dawn / Hermetic** material (_Book T_, Crowley's _777_) for astrology & qabalah attributions, where a stable public link exists.
 
 The `note` on each source tells the reader exactly what it offers and points toward deeper study.
 
 ### 5.2 Authoring via research workflows
+
 Per-card content is produced by **dynamic multi-agent workflows** (ultracode mode), not hand-typed from memory. The pipeline is **research → verify → revise**:
 
 1. **Research stage** — one agent per card reads Waite's exact text (preferring the local `docs/pkt.txt`, falling back to fetching Wikisource), enriches from Joan Bunning and Wikipedia, and emits structured `CardContent` JSON. It is handed **authoritative Golden Dawn / RWS correspondences** (element / planet / zodiac / decan / Golden Dawn title / Hebrew letter / Tree path) as verbatim hints, eliminating the correspondence-error class at the source.
@@ -149,9 +167,10 @@ Per-card content is produced by **dynamic multi-agent workflows** (ultracode mod
 3. **Revise stage** — any card flagged `revise` is auto-corrected against the verifier's specific issues and re-verified, so every card lands clean.
 4. A **format-pilot** (5 representative cards) was produced and approved **before** the full 78-card fan-out, locking the content shape and quality bar.
 
-**Editorial fidelity:** the voice is *expansive and mystical*, drawing richly on the cross-tradition lenses — but every factual claim (counts, correspondences, "Waite says…") must be accurate, and later esoteric/visual readings are clearly framed as interpretation rather than attributed to Waite.
+**Editorial fidelity:** the voice is _expansive and mystical_, drawing richly on the cross-tradition lenses — but every factual claim (counts, correspondences, "Waite says…") must be accurate, and later esoteric/visual readings are clearly framed as interpretation rather than attributed to Waite.
 
 ### 5.3 Integrity guardrails
+
 - Only URLs verified to resolve are recorded — no guessed/fabricated links.
 - `bun run check:sources` — optional script that pings every source URL to catch link rot.
 - Vitest asserts every card has ≥2 sources, each with non-empty `title`/`url`/`note` and a well-formed URL.
@@ -171,6 +190,7 @@ Per-card content is produced by **dynamic multi-agent workflows** (ultracode mod
 ## 7. The 3D Card Component (`<TarotCard>`)
 
 Pure **CSS 3D transforms** — no WebGL. Layered effect:
+
 - **Perspective tilt** tracking pointer / device-orientation, with subtle parallax on inner layers.
 - **Holographic foil** — conic/linear gradient sheen that shifts with tilt angle.
 - **Gilded glow** — soft silver/candlelight aura, intensifying on focus/hover.

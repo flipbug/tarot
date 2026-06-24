@@ -10,7 +10,21 @@
 </a>
 
 <style>
-	.thumb { display: grid; gap: var(--space-2); justify-items: center; transition: transform 0.2s; text-decoration: none; }
-	.thumb:hover { transform: translateY(-4px); }
-	.name { font-family: var(--font-ui); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--moon-200); text-align: center; }
+	.thumb {
+		display: grid;
+		gap: var(--space-2);
+		justify-items: center;
+		transition: transform 0.2s;
+		text-decoration: none;
+	}
+	.thumb:hover {
+		transform: translateY(-4px);
+	}
+	.name {
+		font-family: var(--font-ui);
+		font-size: 0.8rem;
+		letter-spacing: 0.04em;
+		color: var(--moon-200);
+		text-align: center;
+	}
 </style>

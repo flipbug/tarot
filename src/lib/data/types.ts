@@ -5,8 +5,20 @@ export type Element = 'fire' | 'water' | 'air' | 'earth' | 'spirit';
 export type Arcana = 'major' | 'minor';
 export type Suit = 'wands' | 'cups' | 'swords' | 'pentacles';
 export type Rank =
-	| 'ace' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven'
-	| 'eight' | 'nine' | 'ten' | 'page' | 'knight' | 'queen' | 'king';
+	| 'ace'
+	| 'two'
+	| 'three'
+	| 'four'
+	| 'five'
+	| 'six'
+	| 'seven'
+	| 'eight'
+	| 'nine'
+	| 'ten'
+	| 'page'
+	| 'knight'
+	| 'queen'
+	| 'king';
 
 /** A cited, resolvable reference grounding the card's content. */
 export interface Source {

@@ -14,7 +14,14 @@ describe('card content integrity', () => {
 
 	it('every card has all required fields populated', () => {
 		for (const c of CARDS) {
-			for (const f of ['name', 'essence', 'symbolismProse', 'upright', 'reversed', 'mythology'] as const) {
+			for (const f of [
+				'name',
+				'essence',
+				'symbolismProse',
+				'upright',
+				'reversed',
+				'mythology'
+			] as const) {
 				expect(c[f], `${c.id}.${f}`).toBeTruthy();
 			}
 			expect(c.symbolism.length, `${c.id} symbolism`).toBeGreaterThanOrEqual(5);
