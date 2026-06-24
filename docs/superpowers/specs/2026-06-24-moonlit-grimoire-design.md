@@ -106,7 +106,8 @@ interface CardContent {
 
   // the many traditions
   correspondences: Correspondences;
-  mythology: string;        // deities, archetypes, myths — short
+  mythology: string;        // SPECIFIC deities, myths, named figures (short)
+  archetype: { name: string; description: string };  // the UNIVERSAL / psychological archetype (Jung / Campbell) the card embodies — distinct from mythology
   nature: { herbs: string[]; crystals: string[]; season?: string; note?: string };
   lightShadow: { light: string; shadow: string; affirmation: string };
   journey?: string;         // Fool's Journey context (majors only)
@@ -118,12 +119,13 @@ interface CardContent {
 
 **Content authored for all 78 cards**, drawing primarily from the established **Rider–Waite–Smith / Golden Dawn** tradition (the standard, well-documented correspondence system) plus numerological, mythological, and herbal/nature lenses.
 
-**Immersive & digestible** is a hard content rule:
+**Expansive & mystical, yet digestible** is a hard content rule:
 - `essence` is the hook — one or two luminous sentences.
-- `symbolism` is a list of discrete, scannable symbol→meaning notes (the UI can render these as an interactive list keyed to regions of the card).
-- `symbolismProse` is limited to 2–3 short paragraphs.
-- Each `upright`/`reversed`/`mythology` field is 1–2 short paragraphs.
-- The UI sections/tabs these lenses so the reader never faces a wall of text.
+- `symbolism` is a list of 5–9 discrete, scannable symbol→meaning notes (the UI can render these as an interactive list keyed to regions of the card). Later esoteric/visual readings are marked as interpretation, not attributed to Waite.
+- `symbolismProse` ≤ 180 words (2–3 short paragraphs).
+- `upright` / `reversed` ≤ 130 words each.
+- `mythology` 3–5 sentences naming specific figures; `archetype` 2–4 sentences on the universal pattern.
+- The content leans richly into the cross-tradition lenses (qabalah, astrology, numerology, mythology, Wicca/nature) — but every factual claim stays accurate, and the UI sections/tabs these lenses so the reader never faces a wall of text.
 
 ---
 
@@ -140,14 +142,14 @@ Every card cites **2–4 real, verifiable sources**, prioritizing public-domain 
 The `note` on each source tells the reader exactly what it offers and points toward deeper study.
 
 ### 5.2 Authoring via research workflows
-Per-card content is produced by **dynamic multi-agent workflows** (ultracode mode), not hand-typed from memory:
+Per-card content is produced by **dynamic multi-agent workflows** (ultracode mode), not hand-typed from memory. The pipeline is **research → verify → revise**:
 
-1. **Research stage** — one agent per card uses web search + fetch to gather from the canonical sources above, then emits structured `CardContent` JSON matching the schema. The agent **verifies each source URL resolves** (via fetch) before including it.
-2. **Verification stage** — an adversarial checker validates:
-   - Correspondences (element / planet / zodiac / decan / Hebrew letter / Tree path) against the Golden Dawn standard.
-   - That cited sources actually support the stated content.
-   - That prose is **digestible** (length caps respected) and **immersive**.
-3. A **format-pilot** (≈5 representative cards: a Major with astrology+Hebrew, another Major, an Ace, a pip-with-decan, a Court) is produced and reviewed **before** the full 78-card fan-out, to lock the content shape and quality bar.
+1. **Research stage** — one agent per card reads Waite's exact text (preferring the local `docs/pkt.txt`, falling back to fetching Wikisource), enriches from Joan Bunning and Wikipedia, and emits structured `CardContent` JSON. It is handed **authoritative Golden Dawn / RWS correspondences** (element / planet / zodiac / decan / Golden Dawn title / Hebrew letter / Tree path) as verbatim hints, eliminating the correspondence-error class at the source.
+2. **Verify stage** — an adversarial checker validates correspondences against those authoritative values, checks source fidelity against Waite's actual text (catching miscounts and mis-attributed esoterica), confirms the `archetype` is present and distinct from `mythology`, enforces the digestibility caps, and re-fetches each source URL to confirm it resolves. Returns `pass`/`revise` + concrete issues.
+3. **Revise stage** — any card flagged `revise` is auto-corrected against the verifier's specific issues and re-verified, so every card lands clean.
+4. A **format-pilot** (5 representative cards) was produced and approved **before** the full 78-card fan-out, locking the content shape and quality bar.
+
+**Editorial fidelity:** the voice is *expansive and mystical*, drawing richly on the cross-tradition lenses — but every factual claim (counts, correspondences, "Waite says…") must be accurate, and later esoteric/visual readings are clearly framed as interpretation rather than attributed to Waite.
 
 ### 5.3 Integrity guardrails
 - Only URLs verified to resolve are recorded — no guessed/fabricated links.
