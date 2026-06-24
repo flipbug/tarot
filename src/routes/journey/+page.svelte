@@ -23,7 +23,10 @@
 <section class="container journey">
 	<p class="eyebrow">The Fool's Journey</p>
 	<h1>Step {card.number} · {card.name}</h1>
-	<ProgressTracker total={steps.length} studied={steps.filter((c) => progress.isStudied(c.id)).length} />
+	<ProgressTracker
+		total={steps.length}
+		studied={steps.filter((c) => progress.isStudied(c.id)).length}
+	/>
 
 	<div class="stage">
 		<TarotCard {card} size="hero" flippable />
