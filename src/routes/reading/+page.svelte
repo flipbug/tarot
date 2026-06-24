@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { reading } from '$lib/stores/reading.svelte';
-	import { getCard, type CardContent } from '$lib/data';
+	import { CARDS, getCard, type CardContent } from '$lib/data';
 	import PageNav from '$lib/components/PageNav.svelte';
 
 	const entries = $derived(
@@ -8,6 +8,12 @@
 			.map((e) => ({ ...e, card: getCard(e.id) }))
 			.filter((e): e is typeof e & { card: CardContent } => e.card !== undefined)
 	);
+
+	function drawRandom() {
+		const pool = CARDS.filter((c) => !reading.has(c.id));
+		if (pool.length === 0) return;
+		reading.add(pool[Math.floor(Math.random() * pool.length)].id);
+	}
 </script>
 
 <svelte:head><title>Reading · The Tarot</title></svelte:head>
@@ -18,13 +24,19 @@
 
 	{#if entries.length === 0}
 		<p class="empty">
-			Your reading is empty. Add cards from the deck or any card's page, and they gather here as a
-			spread you can lay out, mark reversed, and annotate.
+			Your reading is empty. Draw a card, or add them from the deck or any card's page, and they
+			gather here as a spread you can lay out, mark reversed, and annotate.
 		</p>
+		<button class="draw" onclick={drawRandom}>Draw a card</button>
 	{:else}
 		<div class="bar">
 			<span class="count">{entries.length} {entries.length === 1 ? 'card' : 'cards'}</span>
-			<button class="clear" onclick={() => reading.clear()}>Clear reading</button>
+			<div class="bar-actions">
+				<button class="draw" onclick={drawRandom} disabled={entries.length >= CARDS.length}
+					>Draw a card</button
+				>
+				<button class="clear" onclick={() => reading.clear()}>Clear reading</button>
+			</div>
 		</div>
 		<div class="spread">
 			{#each entries as e (e.id)}
@@ -76,6 +88,11 @@
 		font-size: 0.8rem;
 		color: var(--moon-300);
 	}
+	.bar-actions {
+		display: flex;
+		gap: var(--space-3);
+		align-items: center;
+	}
 	.clear {
 		background: none;
 		border: 1px solid var(--ink-600);
@@ -83,6 +100,25 @@
 		padding: var(--space-1) var(--space-4);
 		color: var(--moon-200);
 		cursor: pointer;
+	}
+	.draw {
+		justify-self: start;
+		background: none;
+		border: 1px solid var(--candle-soft);
+		border-radius: 999px;
+		padding: var(--space-1) var(--space-4);
+		color: var(--candle);
+		font-family: var(--font-ui);
+		font-size: 0.8rem;
+		cursor: pointer;
+	}
+	.draw:hover {
+		color: var(--moon-100);
+		border-color: var(--candle);
+	}
+	.draw:disabled {
+		opacity: 0.4;
+		cursor: default;
 	}
 	.spread {
 		display: grid;

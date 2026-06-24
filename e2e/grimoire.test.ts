@@ -68,3 +68,18 @@ test('reading tray: add, navigate, reverse, persist, clear', async ({ page }) =>
 	await page.getByRole('button', { name: 'Clear reading' }).click();
 	await expect(page.getByText('Your reading is empty.')).toBeVisible();
 });
+
+test('landing card draws a random card', async ({ page }) => {
+	await page.goto('/');
+	await page.getByRole('button', { name: 'Draw a random card' }).click();
+	await expect(page).toHaveURL(/\/card\/[a-z-]+$/);
+	await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+});
+
+test('reading page draws a random card into the tray', async ({ page }) => {
+	await page.goto('/reading');
+	await expect(page.getByText('Your reading is empty.')).toBeVisible();
+	await page.getByRole('button', { name: 'Draw a card' }).click();
+	await expect(page.getByText(/^1 card$/)).toBeVisible();
+	await expect(page.getByRole('heading', { level: 2 })).toBeVisible();
+});

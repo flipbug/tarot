@@ -1,16 +1,25 @@
 <script lang="ts">
 	import CardBack from '$lib/components/CardBack.svelte';
 	import { progress } from '$lib/stores/progress.svelte';
-	import { getCard } from '$lib/data';
+	import { CARDS, getCard } from '$lib/data';
+	import { goto } from '$app/navigation';
 	const last = $derived(progress.lastCardId ? getCard(progress.lastCardId) : undefined);
+
+	function draw() {
+		const card = CARDS[Math.floor(Math.random() * CARDS.length)];
+		goto(`/card/${card.id}`);
+	}
 </script>
 
 <svelte:head><title>The Tarot · Learn the 78 cards</title></svelte:head>
 
 <section class="altar container">
-	<a class="motif" href="/library" aria-label="Enter the deck, browse all 78 cards">
-		<CardBack />
-	</a>
+	<div class="motif-wrap">
+		<button class="motif" onclick={draw} aria-label="Draw a random card">
+			<CardBack />
+		</button>
+		<span class="draw-hint">Tap to draw a card</span>
+	</div>
 	<h1>The Tarot</h1>
 	<p class="lede">
 		A sacred study of the seventy-eight cards: their symbols, numbers, stars, and the many
@@ -41,14 +50,30 @@
 		text-align: center;
 		gap: var(--space-6);
 	}
+	.motif-wrap {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-3);
+		margin-bottom: var(--space-2);
+	}
 	.motif {
 		display: block;
 		width: 210px;
-		margin-bottom: var(--space-2);
+		padding: 0;
+		border: 0;
+		background: none;
 		border-radius: var(--radius);
+		cursor: pointer;
 	}
 	.motif:focus-visible {
 		outline-offset: 6px;
+	}
+	.draw-hint {
+		font-family: var(--font-ui);
+		font-size: 0.72rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--moon-300);
 	}
 	.lede {
 		max-width: 48ch;
