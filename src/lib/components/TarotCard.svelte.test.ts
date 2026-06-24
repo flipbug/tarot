@@ -17,4 +17,11 @@ describe('TarotCard', () => {
 		const screen = render(TarotCard, { card: moon, size: 'hero', flippable: true });
 		await expect.element(screen.getByRole('button')).toBeInTheDocument();
 	});
+
+	it('flips when the flippable card is activated', async () => {
+		const screen = render(TarotCard, { card: moon, size: 'hero', flippable: true });
+		const button = screen.getByRole('button');
+		await button.click();
+		await expect.element(button).toHaveClass('flipped');
+	});
 });

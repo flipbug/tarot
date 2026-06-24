@@ -38,6 +38,9 @@
 	--radius-lg: 22px;
 	--glow-moon: 0 0 30px rgba(201, 212, 232, 0.35);
 	--glow-candle: 0 0 26px rgba(240, 194, 123, 0.4);
+	--foil-warm: rgba(240, 194, 123, 0.5);   /* candle */
+	--foil-cool: rgba(154, 108, 240, 0.25);  /* amethyst */
+	--edge-line: rgba(201, 212, 232, 0.35);  /* silver */
 
 	--maxw: 72rem;
 }

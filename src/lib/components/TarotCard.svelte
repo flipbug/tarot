@@ -79,10 +79,10 @@
 	.front img { display: block; width: 100%; height: 100%; object-fit: cover; }
 	.foil {
 		position: absolute; inset: 0; mix-blend-mode: color-dodge; opacity: 0; transition: opacity 0.2s;
-		background: radial-gradient(circle at var(--gx) var(--gy), rgba(240,194,123,0.5), rgba(154,108,240,0.25) 40%, transparent 70%);
+		background: radial-gradient(circle at var(--gx) var(--gy), var(--foil-warm), var(--foil-cool) 40%, transparent 70%);
 	}
 	.active .foil { opacity: 0.9; }
-	.edge { position: absolute; inset: 0; border-radius: var(--radius); box-shadow: inset 0 0 0 1px rgba(201,212,232,0.35); }
+	.edge { position: absolute; inset: 0; border-radius: var(--radius); box-shadow: inset 0 0 0 1px var(--edge-line); }
 	.back { transform: rotateY(180deg); display: grid; place-items: center; background: radial-gradient(circle, var(--ink-600), var(--ink-800)); }
 	.sigil { font-size: 3rem; color: var(--silver); text-shadow: var(--glow-moon); }
 	@media (prefers-reduced-motion: reduce) {
