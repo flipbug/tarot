@@ -2,6 +2,7 @@
 	import { MAJOR_ARCANA } from '$lib/data';
 	import TarotCard from '$lib/components/TarotCard.svelte';
 	import ProgressTracker from '$lib/components/ProgressTracker.svelte';
+	import PageNav from '$lib/components/PageNav.svelte';
 	import { progress } from '$lib/stores/progress.svelte';
 
 	const steps = MAJOR_ARCANA; // already in 0–21 order
@@ -21,7 +22,7 @@
 <svelte:head><title>The Fool's Journey · Moonlit Grimoire</title></svelte:head>
 
 <section class="container journey">
-	<p class="eyebrow">The Fool's Journey</p>
+	<PageNav current="journey" />
 	<h1>Step {card.number} · {card.name}</h1>
 	<ProgressTracker
 		total={steps.length}

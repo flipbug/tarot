@@ -3,6 +3,7 @@
 	import { filterCards, type CardFilter } from '$lib/data/filter';
 	import FilterBar from '$lib/components/FilterBar.svelte';
 	import CardGrid from '$lib/components/CardGrid.svelte';
+	import PageNav from '$lib/components/PageNav.svelte';
 
 	let filter = $state<CardFilter>({});
 	const visible = $derived(filterCards(CARDS, filter));
@@ -11,7 +12,7 @@
 <svelte:head><title>The Deck · Moonlit Grimoire</title></svelte:head>
 
 <section class="container">
-	<p class="eyebrow">The Deck</p>
+	<PageNav current="library" />
 	<h1>Seventy-eight doorways</h1>
 	<FilterBar bind:filter />
 	<p class="count">{visible.length} cards</p>
