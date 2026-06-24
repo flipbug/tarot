@@ -1,0 +1,13 @@
+.git
+.github
+.svelte-kit
+node_modules
+build
+.superpowers
+.vscode
+docs
+e2e
+test-results
+playwright-report
+*.log
+npm-debug.log

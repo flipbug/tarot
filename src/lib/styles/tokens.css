@@ -1,0 +1,54 @@
+:root {
+	/* near-black nocturnal ground (faintly cool) */
+	--ink-900: #08080d;
+	--ink-800: #0e0e16;
+	--ink-700: #15151f;
+	--ink-600: #20202c;
+	--veil: rgba(14, 14, 22, 0.66);
+
+	/* moonlight & accents */
+	--moon-100: #f4f1ff;
+	--moon-200: #d4cee6;
+	--moon-300: #9c95b0;
+	--silver: #c9d4e8;
+	--candle: #f0c27b; /* warm amber */
+	--candle-soft: #e8b35e;
+	--sage: #9bbf9e;
+	--amethyst: #9a6cf0;
+
+	/* elemental hues (for chips/filters) */
+	--el-fire: #e08c5a;
+	--el-water: #6aa9d6;
+	--el-air: #c9b56a;
+	--el-earth: #8aa777;
+	--el-spirit: #b89cf0;
+
+	/* type */
+	--font-display: 'Aktura', 'Cormorant Garamond', Georgia, serif;
+	--font-body: 'Sentient', Georgia, 'Times New Roman', serif;
+	--font-ui: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+	/* spacing scale */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
+
+	/* radius, glow */
+	--radius: 14px;
+	--radius-lg: 22px;
+	--glow-moon: 0 0 30px rgba(201, 212, 232, 0.35);
+	--glow-candle: 0 0 26px rgba(240, 194, 123, 0.4);
+	--foil-warm: rgba(240, 194, 123, 0.5); /* candle */
+	--foil-cool: rgba(154, 108, 240, 0.25); /* amethyst */
+	--edge-line: rgba(201, 212, 232, 0.35); /* silver */
+
+	--moon-crater: rgba(20, 18, 43, 0.12);
+	--moon-crater-soft: rgba(20, 18, 43, 0.1);
+
+	--maxw: 72rem;
+}

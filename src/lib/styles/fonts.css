@@ -1,0 +1,28 @@
+@font-face {
+	font-family: 'Cormorant Garamond';
+	src: url('/fonts/cormorant-garamond-500.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Cormorant Garamond';
+	src: url('/fonts/cormorant-garamond-600.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Sentient';
+	src: url('/fonts/SIH66VPT4WS2HIF5PEJNDU4INNUF54LG.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Sentient';
+	src: url('/fonts/RNUZPHMIVMPXFHVACRGCAJ32E6WUEDVU.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
