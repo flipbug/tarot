@@ -1,11 +1,12 @@
 <!-- Small primary nav shown in the header of the secondary views. -->
 <script lang="ts">
-	let { current }: { current?: 'home' | 'library' | 'journey' | 'tree' } = $props();
+	let { current }: { current?: 'home' | 'library' | 'journey' | 'tree' | 'reading' } = $props();
 	const links = [
 		{ href: '/', key: 'home', label: 'Home' },
 		{ href: '/library', key: 'library', label: 'Deck' },
 		{ href: '/journey', key: 'journey', label: 'Journey' },
-		{ href: '/tree', key: 'tree', label: 'Tree of Life' }
+		{ href: '/tree', key: 'tree', label: 'Tree of Life' },
+		{ href: '/reading', key: 'reading', label: 'Reading' }
 	] as const;
 </script>
 
