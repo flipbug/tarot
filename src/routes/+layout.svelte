@@ -3,10 +3,12 @@
 	import '$lib/styles/fonts.css';
 	import '$lib/styles/global.css';
 	import Backdrop from '$lib/components/Backdrop.svelte';
+	import ReadingDock from '$lib/components/ReadingDock.svelte';
 	let { children } = $props();
 </script>
 
 <Backdrop />
+<ReadingDock />
 <a class="skip" href="#main">Skip to content</a>
 <main id="main">
 	{@render children()}
