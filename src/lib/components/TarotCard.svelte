@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { CardContent } from '$lib/data';
+	import CardBackArt from './CardBackArt.svelte';
 
 	let {
 		card,
@@ -70,7 +71,7 @@
 			<div class="edge" aria-hidden="true"></div>
 		</div>
 		<div class="face back" aria-hidden="true">
-			<div class="sigil">☽</div>
+			<CardBackArt />
 		</div>
 	</div>
 </div>
@@ -137,14 +138,6 @@
 	}
 	.back {
 		transform: rotateY(180deg);
-		display: grid;
-		place-items: center;
-		background: radial-gradient(circle, var(--ink-600), var(--ink-800));
-	}
-	.sigil {
-		font-size: 3rem;
-		color: var(--silver);
-		text-shadow: var(--glow-moon);
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.inner,

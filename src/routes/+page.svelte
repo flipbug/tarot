@@ -1,15 +1,17 @@
 <script lang="ts">
-	import MoonPhase from '$lib/components/MoonPhase.svelte';
+	import CardBack from '$lib/components/CardBack.svelte';
 	import { progress } from '$lib/stores/progress.svelte';
 	import { getCard } from '$lib/data';
 	const last = $derived(progress.lastCardId ? getCard(progress.lastCardId) : undefined);
 </script>
 
-<svelte:head><title>Moonlit Grimoire · Learn the Tarot</title></svelte:head>
+<svelte:head><title>The Tarot · Learn the 78 cards</title></svelte:head>
 
 <section class="altar container">
-	<MoonPhase size={140} />
-	<h1>The Moonlit Grimoire</h1>
+	<a class="motif" href="/library" aria-label="Enter the deck — browse all 78 cards">
+		<CardBack />
+	</a>
+	<h1>The Tarot</h1>
 	<p class="lede">
 		A sacred study of the seventy-eight cards — their symbols, numbers, stars, and the many
 		traditions that illuminate them. One card at a time.
@@ -20,6 +22,8 @@
 		>
 		<a class="door" href="/journey"
 			><span>Walk the Fool's Journey</span><small>The 22 Majors, in order</small></a
+		>
+		<a class="door" href="/tree"><span>The Tree of Life</span><small>The 22 paths, mapped</small></a
 		>
 		{#if last}<a class="door" href="/card/{last.id}"
 				><span>Continue</span><small>{last.name}</small></a
@@ -36,6 +40,15 @@
 		justify-items: center;
 		text-align: center;
 		gap: var(--space-6);
+	}
+	.motif {
+		display: block;
+		width: 210px;
+		margin-bottom: var(--space-2);
+		border-radius: var(--radius);
+	}
+	.motif:focus-visible {
+		outline-offset: 6px;
 	}
 	.lede {
 		max-width: 48ch;

@@ -10,9 +10,9 @@
 	const card = $derived(data.card);
 
 	const sections = $derived([
-		{ id: 'symbolism', label: 'Symbolism' },
 		{ id: 'meaning', label: 'Meaning' },
 		{ id: 'correspondences', label: 'Correspondences' },
+		{ id: 'symbolism', label: 'Symbolism' },
 		{ id: 'archetype', label: 'Archetype' },
 		{ id: 'mythology', label: 'Mythology' },
 		{ id: 'nature', label: 'Nature' },
@@ -21,7 +21,7 @@
 		{ id: 'sources', label: 'Sources' }
 	]);
 
-	let active = $state('symbolism');
+	let active = $state('meaning');
 
 	$effect(() => {
 		progress.markStudied(card.id);
@@ -52,16 +52,6 @@
 	<aside class="rail">
 		<div class="rail-sticky">
 			<TarotCard {card} size="hero" flippable />
-			<div class="summary">
-				<p class="eyebrow">
-					{card.arcana === 'major' ? `Major Arcana · ${card.number}` : `${card.suit}`}
-				</p>
-				<h1>{card.name}</h1>
-				<p class="essence">{card.essence}</p>
-				<ul class="keywords">
-					{#each card.keywords as k (k)}<li>{k}</li>{/each}
-				</ul>
-			</div>
 			<nav class="outline" aria-label="Card sections">
 				<ul>
 					{#each sections as s (s.id)}
@@ -69,15 +59,25 @@
 					{/each}
 				</ul>
 			</nav>
+			<nav class="rail-pager" aria-label="Browse cards">
+				<a href="/card/{data.prev.id}" title={data.prev.name}>← Prev</a>
+				<a class="all" href="/library">All</a>
+				<a href="/card/{data.next.id}" title={data.next.name}>Next →</a>
+			</nav>
 		</div>
 	</aside>
 
 	<div class="content">
-		<section id="symbolism">
-			<h2>Symbolism</h2>
-			<SymbolList symbols={card.symbolism} />
-			<p class="prose">{card.symbolismProse}</p>
-		</section>
+		<header class="lede">
+			<p class="eyebrow">
+				{card.arcana === 'major' ? `Major Arcana · ${card.number}` : `${card.suit}`}
+			</p>
+			<h1>{card.name}</h1>
+			<p class="essence">{card.essence}</p>
+			<ul class="keywords">
+				{#each card.keywords as k (k)}<li>{k}</li>{/each}
+			</ul>
+		</header>
 
 		<section id="meaning">
 			<h2>Meaning</h2>
@@ -96,6 +96,12 @@
 		<section id="correspondences">
 			<h2>Correspondences</h2>
 			<CorrespondencePanel correspondences={card.correspondences} />
+		</section>
+
+		<section id="symbolism">
+			<h2>Symbolism</h2>
+			<SymbolList symbols={card.symbolism} />
+			<p class="prose">{card.symbolismProse}</p>
 		</section>
 
 		<section id="archetype">
@@ -146,60 +152,27 @@
 			<h2>Sources &amp; further reading</h2>
 			<SourceList sources={card.sources} />
 		</section>
-
-		<nav class="pager">
-			<a href="/card/{data.prev.id}">← {data.prev.name}</a>
-			<a href="/library">All cards</a>
-			<a href="/card/{data.next.id}">{data.next.name} →</a>
-		</nav>
 	</div>
 </article>
 
 <style>
 	.detail {
 		display: grid;
-		grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
-		gap: var(--space-16);
-		align-items: start;
+		grid-template-columns: minmax(210px, 250px) minmax(0, 1fr);
+		gap: var(--space-12);
+		/* no align-items: start — the rail cell must stretch to full row height
+		   so its sticky child can stay pinned through the whole scroll */
 	}
 	.rail-sticky {
 		position: sticky;
-		top: var(--space-8);
+		top: var(--space-6);
+		max-height: calc(100dvh - var(--space-6) * 2);
+		overflow-y: auto;
+		overscroll-behavior: contain;
 		display: grid;
-		gap: var(--space-6);
-	}
-	.summary {
-		display: grid;
-		gap: var(--space-3);
-	}
-	.summary h1 {
-		margin: 0;
-	}
-	.essence {
-		font-family: var(--font-display);
-		font-weight: 500;
-		font-size: 1.35rem;
-		line-height: 1.4;
-		color: var(--moon-100);
-		margin: 0;
-		text-wrap: pretty;
-	}
-	.keywords {
-		list-style: none;
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-2);
-		padding: 0;
-		margin: 0;
-	}
-	.keywords li {
-		font-family: var(--font-ui);
-		font-size: 0.72rem;
-		letter-spacing: 0.04em;
-		padding: var(--space-1) var(--space-3);
-		border: 1px solid var(--ink-600);
-		border-radius: 999px;
-		color: var(--moon-200);
+		gap: var(--space-8);
+		padding-right: var(--space-1);
+		scrollbar-width: thin;
 	}
 	.outline {
 		font-family: var(--font-ui);
@@ -210,7 +183,6 @@
 		margin: 0;
 		padding: 0;
 		display: grid;
-		gap: var(--space-1);
 	}
 	.outline a {
 		display: block;
@@ -238,6 +210,25 @@
 		transform: translateY(-50%);
 		box-shadow: var(--glow-candle);
 	}
+	.rail-pager {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--space-2);
+		font-family: var(--font-ui);
+		font-size: 0.74rem;
+		letter-spacing: 0.04em;
+		border-top: 1px solid var(--ink-700);
+		padding-top: var(--space-3);
+	}
+	.rail-pager a {
+		color: var(--moon-300);
+	}
+	.rail-pager a:hover {
+		color: var(--moon-100);
+	}
+	.rail-pager .all {
+		color: var(--moon-200);
+	}
 
 	.content {
 		display: grid;
@@ -246,6 +237,44 @@
 	}
 	.content section {
 		scroll-margin-top: var(--space-8);
+	}
+	.lede {
+		display: grid;
+		gap: var(--space-3);
+	}
+	.lede .eyebrow {
+		text-transform: capitalize;
+	}
+	.lede h1 {
+		margin: 0;
+		font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+	}
+	.essence {
+		font-family: var(--font-display);
+		font-weight: 500;
+		font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+		line-height: 1.4;
+		color: var(--moon-100);
+		margin: 0;
+		max-width: 44ch;
+		text-wrap: pretty;
+	}
+	.keywords {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+		padding: 0;
+		margin: var(--space-1) 0 0;
+	}
+	.keywords li {
+		font-family: var(--font-ui);
+		font-size: 0.72rem;
+		letter-spacing: 0.04em;
+		padding: 2px var(--space-3);
+		border: 1px solid var(--ink-600);
+		border-radius: 999px;
+		color: var(--moon-200);
 	}
 	.prose {
 		max-width: 68ch;
@@ -269,15 +298,6 @@
 		margin: 0;
 		text-wrap: balance;
 	}
-	.pager {
-		display: flex;
-		justify-content: space-between;
-		gap: var(--space-4);
-		font-family: var(--font-ui);
-		font-size: 0.85rem;
-		border-top: 1px solid var(--ink-600);
-		padding-top: var(--space-6);
-	}
 
 	@media (max-width: 920px) {
 		.detail {
@@ -286,6 +306,8 @@
 		}
 		.rail-sticky {
 			position: static;
+			max-height: none;
+			overflow: visible;
 		}
 		.outline {
 			display: none;
