@@ -16,7 +16,7 @@ COPY . .
 RUN bun run build
 
 # ---- serve the prerendered output ----
-FROM nginx:1.27-alpine AS serve
+FROM nginx:1.31-alpine AS serve
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
